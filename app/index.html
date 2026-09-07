@@ -62,7 +62,10 @@
         <div id="players-list"></div>
       </div>
 
-      <div class="panel-block tint-rose">
+      <!-- Hidden from players, not deleted — the God-view toggle is still handy for
+           debugging locally (state.debug in main.js still works if you flip `checked` from
+           devtools). See toggle-debug wiring in main.js. -->
+      <div class="panel-block tint-rose" style="display:none">
         <h2>Debug</h2>
         <label class="checkbox-row">
           <input type="checkbox" id="toggle-debug" />
@@ -81,16 +84,20 @@
     <section class="center-panel">
       <div class="panel-block tint-blue" id="round-panel">
         <h2>Round <span id="round-number">-</span> <span id="round-timer" class="round-timer"></span></h2>
-        <label class="viewing-as-row">
+        <!-- Hidden from players, not deleted — a normal player should only ever see their own
+             POV (peeking at a bot's private view was a testing convenience). The select element
+             stays in the DOM so renderViewingAsSelect()/state.viewingPlayerId in main.js don't
+             need touching; it just never gets shown or changed by a real seated player. -->
+        <label class="viewing-as-row" style="display:none">
           Viewing grid as
           <select id="viewing-as-select"></select>
         </label>
         <dl class="stats">
-          <dt>Current Estimate (for the viewed player)</dt><dd id="current-estimate">-</dd>
+          <dt>Current Estimate</dt><dd id="current-estimate">-</dd>
         </dl>
         <h3 class="log-heading">Public — Auctioneer Intel (everyone sees this)</h3>
         <div id="public-log" class="intel-log"></div>
-        <h3 class="log-heading">Private — viewed player's own Assistant/Device reveals</h3>
+        <h3 class="log-heading">Private — your own Assistant/Device reveals</h3>
         <div id="private-log" class="intel-log"></div>
       </div>
 

@@ -110,6 +110,18 @@ Each stage should be playable/testable on its own before moving to the next (Sta
 - Drive-by fix found while touching the test scripts: `test_auction_engine.mjs`'s Test 10 hardcoded an expected 10% overpay-spillover share, which had gone stale against `config.js`'s `OVERPAY_SPILLOVER_RATE` (now 0.2, changed independently by the user) and was failing. Changed it to read `OVERPAY_SPILLOVER_RATE` from config instead of a hardcoded literal, the same fix shape as the lot-size one.
 - Verified live: `.grid`'s rendered pixel size (5796×356px, 170 rows) is identical across several consecutive matches with different randomized lots. Both regression suites pass (36 + 38).
 
+**Post-Stage-4 UI pass — hiding testing-only UI (not deleting):** two pieces of UI were built for solo/local testing rather than real multiplayer play, and are now hidden (via `style="display:none"` on their container, no JS touched) rather than removed, so they're trivially available again from devtools if needed later:
+- The **Debug** panel (God-view checkbox) — `state.debug` and its rendering logic are unchanged, just not shown.
+- The **"Viewing grid as"** dropdown, on the explicit reasoning that a real player should only ever see their own POV — peeking at a bot's perspective was a testing convenience, not a real feature. `state.viewingPlayerId` now just stays at `myPlayerId` for the whole match for a real seated player, since nothing in the UI can change it anymore (God View, if re-enabled via devtools, still reveals every player's info regardless — unaffected). Relabeled the two bits of copy that referenced "the viewed player" ("Current Estimate (for the viewed player)" → "Current Estimate", "viewed player's own Assistant/Device reveals" → "your own Assistant/Device reveals") since it's now always you.
+
+**Post-Stage-4 fix — Current Estimate was a rough average, not a real floor (user-reported):** the previous formula added the *pool-wide average* value for a rarity/size once any single item's rarity or shape was known — informative, but not what the user wanted: a genuine guaranteed-minimum reading using only what's visible on the grid (no aggregate intel/device stats folded in, per explicit instruction). Rewrote `computeCurrentEstimate()` in `poolStats.js`:
+- Fully revealed items still contribute their exact price.
+- Rarity **and** shape both known (not identified) now contributes the cheapest pool item matching that *exact* size and rarity together (the tightest defensible floor) — e.g. "1×3 and Gold" contributes the cheapest 1×3 Gold item in the whole pool, not an average.
+- Rarity known only contributes the cheapest item of that rarity; shape known only contributes the cheapest item of that exact size.
+- Unrevealed items still contribute 0.
+- `computePoolStats()` now precomputes `minByRarity`/`minBySize`/`minBySizeRarity` lookup tables alongside the pre-existing `rarityAverages`/`poolAverage` (kept as-is — `bots.js`'s blind-bidding heuristic depends on `poolAverage` for an unrelated calculation, not touched).
+- Verified with a direct unit check against the real collectible pool: hand-computed expected minimums for Gold-rarity, 2×2, and 1×3-Gold items matched the new lookup tables exactly, and a synthetic 4-item lot (one rarity-only reveal, one shape-only, one rarity+shape, one untouched) produced the exact expected sum. Confirmed live in a real match too. Both regression suites still pass (36 + 38) — the one existing Current-Estimate test only checked a relative property (owner's estimate > non-owner's after a private reveal), which still holds.
+
 ---
 
 ## Decided during Stage 1
