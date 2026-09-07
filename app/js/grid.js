@@ -4,6 +4,10 @@ import { GRID_FIXED_HEIGHT } from "./config.js";
 
 const CELL_PX = 32;
 
+// Once the lot is sold or goes unsold, there's nothing left to protect — everyone sees every
+// item's full identity, regardless of what was actually revealed to anyone during bidding.
+const FULL_REVEAL = { rarityKnown: true, shapeKnown: true, fullyRevealed: true };
+
 /**
  * Render a lot's grid into `container`. The layout (gridWidth/gridHeight/placements) is
  * computed once at lot-generation time (see lotGenerator.js) and read here, not re-packed per
@@ -11,14 +15,16 @@ const CELL_PX = 32;
  * landing on its own random layout.
  * @param {HTMLElement} container
  * @param {object} lot - from generateLot()
- * @param {{debug?: boolean, viewerPlayerId?: string, onChange?: () => void}} opts
- *   debug=true shows the "god view" (everything revealed to anyone, public or private) and lets
- *   you click cells to test render states by cycling item.publicReveal. debug=false (real play)
- *   shows exactly what `viewerPlayerId` would see (their own private reveals + public reveals
- *   only) and cells are not clickable — real reveals only happen via Assistants/Devices/Intel.
+ * @param {{debug?: boolean, revealAll?: boolean, viewerPlayerId?: string, onChange?: () => void}} opts
+ *   debug=true shows the "god view" (everything revealed to anyone so far, public or private, as
+ *   a union — NOT full identity unless someone actually fully revealed a given item) and lets you
+ *   click cells to test render states by cycling item.publicReveal. revealAll=true (the match has
+ *   ended) forces every item to its fully-revealed state regardless of what was actually known to
+ *   anyone, and is not clickable. Otherwise (real play, match still in progress) shows exactly
+ *   what `viewerPlayerId` would see (their own private reveals + public reveals only).
  */
 export function renderGrid(container, lot, opts = {}) {
-  const { debug = false, viewerPlayerId = null, onChange } = opts;
+  const { debug = false, revealAll = false, viewerPlayerId = null, onChange } = opts;
   const { gridWidth, placements } = lot;
 
   container.innerHTML = "";
@@ -33,7 +39,7 @@ export function renderGrid(container, lot, opts = {}) {
 
   for (const item of lot.items) {
     const placement = placements[item.instanceId];
-    const reveal = debug ? omniscientReveal(item) : effectiveReveal(item, viewerPlayerId);
+    const reveal = revealAll ? FULL_REVEAL : debug ? omniscientReveal(item) : effectiveReveal(item, viewerPlayerId);
 
     if (debug) {
       // Faint boundary for every item's true footprint, regardless of reveal state,

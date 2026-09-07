@@ -620,7 +620,12 @@ function render() {
   renderResult();
 
   const gridEl = document.getElementById("grid");
-  renderGrid(gridEl, match.lot, { debug, viewerPlayerId: state.viewingPlayerId, onChange: render });
+  renderGrid(gridEl, match.lot, {
+    debug,
+    revealAll: match.status !== "bidding",
+    viewerPlayerId: state.viewingPlayerId,
+    onChange: render,
+  });
 }
 
 /**
