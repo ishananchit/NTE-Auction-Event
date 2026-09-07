@@ -125,9 +125,12 @@ Each stage should be playable/testable on its own before moving to the next (Sta
 ## Decided during Stage 4
 - See the callout above — Firestore over RTDB, single-document-per-room data model, room-code joining (no matchmaking), host-authoritative sync via an actions queue (no Cloud Functions/no paid plan), no Auth yet (sessionStorage-based identity instead), grid-packing computed once and synced rather than per-client.
 
+## Post-Stage-4 — deployment
+Deployed to GitHub Pages via a GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) that publishes `app/` on every push to `main`, live at `https://ishananchit.github.io/NTE-Auction-Event/`. Repo excludes the local `images/` reference-screenshot folder (93MB, not needed for the live site) and `firebase.txt` (a scratch duplicate of `app/js/firebaseConfig.js`) via `.gitignore`.
+
+**Firestore rules tightened** (`firestore.rules`, managed via the Firebase Console's Rules tab, not CLI-deployed — no `firebase.json` in this repo): replaced the wide-open test-mode default (which would have expired 2026-09-23) with structural validation — only the exact `rooms/{code}` + `rooms/{code}/actions/{id}` shape this app writes is allowed, field types/sizes are checked, and the `rooms` collection can't be enumerated (`allow get`, no `allow list`, so a room code must already be known). This is explicitly *not* per-player access control — there's still no Firebase Auth, so any client with the room code can still write any seat in that room, same as before. Real per-player enforcement (stopping one player from editing another's seat/bid) would need Anonymous Auth plus rules keyed off `request.auth.uid`; the user chose structural-only tightening for now given the friends-only threat model.
+
 ## Not yet decided
-- Actually deploying to GitHub Pages (everything so far has been tested via a local static server + the real Firestore project — deployment itself hasn't been done, though nothing about the app should need to change for it).
-- Firestore security rules / Firebase Auth — currently wide-open test-mode rules (expire 2026-09-23, will need bumping or replacing before then) and no real per-player access control; privacy is client-side-only for now.
 - Whether/how to give bots a device-usage strategy (currently bots never use devices even if assigned some via setup).
-- Device Set purchasing (currency cost + persistent inventory across matches) — current setup is free/per-match only, per explicit user instruction to defer this.
+- Real per-player Firestore access control (Anonymous Auth) — see the Firestore rules note above; deferred, structural-only rules chosen instead for now.
 - What happens if the host's tab closes mid-match (currently: the match just stalls — accepted tradeoff, not handled).

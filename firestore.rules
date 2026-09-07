@@ -1,0 +1,89 @@
+// Firestore security rules for the "Going, Going, Gone!" room database.
+//
+// This is "structural-only" tightening: there's no Firebase Auth in this app (see
+// implementation-plan.md), so these rules cannot verify *who* is writing — any client with the
+// public Firebase config can still read/write within a room, the same way any of your friends
+// with the room code can right now. What this DOES stop:
+//   - anyone using this Firebase project's config to read/write collections/documents outside
+//     the exact rooms/{code} + rooms/{code}/actions/{id} shape this app uses
+//   - writing a "room" document that isn't shaped like a real one (wrong fields, wrong types,
+//     garbage/oversized values) — protects against junk data and storage/cost abuse
+//   - enumerating/listing every room in the database (only a specific known room code can be
+//     fetched — see "allow get" vs "allow list" below)
+// It does NOT stop one player in a room they've legitimately joined from editing another
+// player's seat or forging a bid as them — that needs real per-player identity (Firebase Auth),
+// which was explicitly deferred (see implementation-plan.md "Not yet decided").
+//
+// Deploy via Firebase Console → Firestore Database → Rules tab → paste → Publish.
+// (No firebase.json/CLI setup in this repo — rules are managed via the Console, matching how
+// the rest of Firebase setup was done for this project.)
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isValidRoom(d) {
+      return d.keys().hasOnly(['roomCode', 'hostClientId', 'phase', 'seats', 'match', 'createdAt', 'updatedAt'])
+        && d.roomCode is string && d.roomCode.size() <= 8
+        && d.hostClientId is string && d.hostClientId.size() > 0 && d.hostClientId.size() <= 100
+        && d.phase in ['lobby', 'match']
+        && d.seats is map && d.seats.keys().hasOnly(['0', '1', '2', '3'])
+        && isValidSeats(d.seats)
+        && (d.match == null || d.match is map);
+    }
+
+    function isValidSeats(seats) {
+      return (seats.get('0', null) == null || isValidSeat(seats.get('0', null)))
+        && (seats.get('1', null) == null || isValidSeat(seats.get('1', null)))
+        && (seats.get('2', null) == null || isValidSeat(seats.get('2', null)))
+        && (seats.get('3', null) == null || isValidSeat(seats.get('3', null)));
+    }
+
+    function isValidSeat(seat) {
+      return seat is map
+        && seat.keys().hasOnly(['clientId', 'name', 'isBot', 'assistantName', 'deviceSetNames', 'balance'])
+        && seat.clientId is string && seat.clientId.size() <= 100
+        && seat.name is string && seat.name.size() <= 40
+        && seat.isBot is bool
+        && (seat.assistantName == null || (seat.assistantName is string && seat.assistantName.size() <= 40))
+        && seat.deviceSetNames is list && seat.deviceSetNames.size() <= 5
+        && seat.balance is number && seat.balance >= 0;
+    }
+
+    function isValidAction(a) {
+      return a.keys().hasOnly(['type', 'playerId', 'amount', 'deviceId', 'createdAt'])
+        && a.type in ['placeBid', 'useDevice']
+        && a.playerId is string && a.playerId.matches('^p[1-4]$')
+        && (a.type != 'placeBid' || (a.amount is number && a.amount >= 0))
+        && (a.type != 'useDevice' || (a.deviceId is string && a.deviceId.size() <= 200));
+    }
+
+    match /rooms/{roomCode} {
+      // "get" (fetch one known room) is allowed; "list" is not granted at all, so the whole
+      // rooms collection can't be enumerated — you have to already know a specific code.
+      allow get: if roomCode.matches('^[A-Z0-9]{4,8}$');
+
+      allow create: if roomCode.matches('^[A-Z0-9]{4,8}$')
+        && isValidRoom(request.resource.data)
+        && request.resource.data.phase == 'lobby'
+        && request.resource.data.match == null;
+
+      allow update: if roomCode.matches('^[A-Z0-9]{4,8}$')
+        && isValidRoom(request.resource.data);
+
+      allow delete: if false;
+
+      match /actions/{actionId} {
+        // Listing here is scoped to one already-known room's subcollection, not global.
+        allow read: if roomCode.matches('^[A-Z0-9]{4,8}$');
+        allow create: if roomCode.matches('^[A-Z0-9]{4,8}$') && isValidAction(request.resource.data);
+        allow update: if false;
+        allow delete: if roomCode.matches('^[A-Z0-9]{4,8}$');
+      }
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
