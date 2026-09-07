@@ -1,0 +1,949 @@
+* { box-sizing: border-box; }
+
+/* ---------- Theme tokens ----------
+   Dark canvas (body/header/grid) stays as-is. Everything that used to be a flat dark
+   "panel" (grey bg, near-black nested boxes, light-grey text) now uses two layers:
+     1. a pastel section tint (.tint-*) for the outer box (panel-block, seat cards,
+        landing sub-blocks, the collectibles overlay) — this is the "section background"
+        the whole thing sits in;
+     2. a single warm-white "card" surface (--card-*) for anything nested one level
+        deeper inside a tinted section (intel entries, bid slots, picker items, inputs,
+        player cards, device rows) — kept one consistent hue everywhere so nested
+        content always reads clearly against whichever pastel section it's in.
+   Text flips from light-on-dark to dark-on-light throughout (--ink/--ink-soft). */
+:root {
+  --card-bg: #e9e0c8;
+  --card-border: #c7b78d;
+  --ink: #241f2e;
+  --ink-soft: #6b6353;
+
+  --tint-blue-bg: #c2d7ec;   --tint-blue-border: #8fb0d6;   --tint-blue-ink: #1c3a5e;
+  --tint-green-bg: #c3e2cc;  --tint-green-border: #8ac89b;  --tint-green-ink: #16452d;
+  --tint-amber-bg: #f0dbac;  --tint-amber-border: #d9ac5c;  --tint-amber-ink: #5c3c10;
+  --tint-purple-bg: #d7c4ea; --tint-purple-border: #b18bd6; --tint-purple-ink: #3d2060;
+  --tint-rose-bg: #f0c5cc;   --tint-rose-border: #db8fa0;   --tint-rose-ink: #5c1c2c;
+  --tint-gold-bg: #f0e0a4;  --tint-gold-border: #d6b75c;   --tint-gold-ink: #5c4310;
+  --tint-slate-bg: #c6cee0;  --tint-slate-border: #94a3c0;  --tint-slate-ink: #263248;
+}
+
+.tint-blue   { --panel-bg: var(--tint-blue-bg);   --panel-border: var(--tint-blue-border);   --panel-ink: var(--tint-blue-ink); }
+.tint-green  { --panel-bg: var(--tint-green-bg);  --panel-border: var(--tint-green-border);  --panel-ink: var(--tint-green-ink); }
+.tint-amber  { --panel-bg: var(--tint-amber-bg);  --panel-border: var(--tint-amber-border);  --panel-ink: var(--tint-amber-ink); }
+.tint-purple { --panel-bg: var(--tint-purple-bg); --panel-border: var(--tint-purple-border); --panel-ink: var(--tint-purple-ink); }
+.tint-rose   { --panel-bg: var(--tint-rose-bg);   --panel-border: var(--tint-rose-border);   --panel-ink: var(--tint-rose-ink); }
+.tint-gold   { --panel-bg: var(--tint-gold-bg);   --panel-border: var(--tint-gold-border);   --panel-ink: var(--tint-gold-ink); }
+.tint-slate  { --panel-bg: var(--tint-slate-bg);  --panel-border: var(--tint-slate-border);  --panel-ink: var(--tint-slate-ink); }
+
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: #0d0e14;
+  color: #e8e8ea;
+}
+
+header {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid #2a2d3d;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #f0b93d;
+}
+
+.subtitle {
+  color: #9aa1b5;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
+/* Grid layout instead of a plain flex row so the center panel can sit in a real spacer
+   column between the players panel and the grid, rather than glued to the left column
+   with all the leftover width dumped on one side. The grid box itself is always exactly
+   the same fixed size regardless of lot contents (see grid.js CELL_PX/config.js
+   GRID_WIDTH/GRID_FIXED_HEIGHT), so .grid-panel's column is sized to fit it tightly
+   (auto) instead of a 1fr track with flex-end justification — a 1fr track that's wider
+   than the grid it holds leaves invisible dead space between the center panel and the
+   visible grid box, which is what made the two spacer gaps look uneven before. With
+   the grid-panel column hugging its content, the two remaining 1fr columns are pure
+   empty space and split evenly, so the center panel sits visually centered between the
+   players panel and the actual grid box, which stays flush against the right edge. */
+main {
+  display: grid;
+  grid-template-columns: 460px 1fr 460px 1fr auto;
+  height: calc(100vh - 52px);
+}
+
+/* Left panel — mirrors the reference game's left-side info panels. */
+.side-panel {
+  grid-column: 1;
+  padding: 1rem;
+  border-right: 1px solid #2a2d3d;
+  overflow-y: auto;
+}
+
+.panel-block {
+  background: var(--panel-bg, var(--tint-slate-bg));
+  border: 1px solid var(--panel-border, var(--tint-slate-border));
+  color: var(--panel-ink, var(--tint-slate-ink));
+  border-radius: 8px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.panel-block h2 {
+  margin: 0 0 0.5rem;
+  font-size: 0.9rem;
+  color: var(--panel-ink, var(--tint-slate-ink));
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* A room code shown inside a light panel (vs. the dark lobby heading below, which
+   keeps the brighter gold) needs a darker shade to stay readable. */
+.panel-block .room-code {
+  color: #8a5a10;
+}
+
+button {
+  background: #2c2f3a;
+  color: #f2f0e8;
+  border: 1px solid #454a5c;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  width: 100%;
+}
+
+button:hover {
+  background: #383c4a;
+}
+
+button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+
+button:disabled:hover {
+  background: #2c2f3a;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.25rem 0.5rem;
+  margin: 0.75rem 0 0;
+  font-size: 0.85rem;
+}
+
+.stats dt {
+  color: var(--ink-soft);
+}
+
+.stats dd {
+  margin: 0;
+  text-align: right;
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.hint {
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin: 0.6rem 0 0;
+  line-height: 1.4;
+}
+
+/* Center panel — round info, intel log, bid entry, results. Each child .panel-block
+   (round/intel, bid entry, devices, result) is a visually distinct card — gap here
+   provides the separation instead of each block's own margin, so spacing stays even. */
+.center-panel {
+  grid-column: 3;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.center-panel > .panel-block {
+  margin-bottom: 0;
+}
+
+.round-timer {
+  float: right;
+  font-weight: normal;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+}
+
+.intel-log {
+  margin-top: 0.6rem;
+  max-height: 220px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.intel-entry {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.intel-entry.kind-assistantReveal { border-left: 3px solid #3b78c4; }
+.intel-entry.kind-deviceUse { border-left: 3px solid #c98a12; }
+.intel-entry.kind-auctioneerIntel { border-left: 3px solid #8a7f66; }
+
+.intel-entry .round-tag {
+  color: var(--ink-soft);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+/* Landing screen (create/join a room) */
+.landing-screen {
+  display: flex;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.landing-screen.hidden {
+  display: none;
+}
+
+.landing-inner {
+  max-width: 420px;
+  width: 100%;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+
+.field-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  margin: 0.75rem 0 1.25rem;
+}
+
+.field-row input {
+  background: var(--card-bg);
+  color: var(--ink);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.landing-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.landing-action-block {
+  background: var(--panel-bg, var(--tint-blue-bg));
+  border: 1px solid var(--panel-border, var(--tint-blue-border));
+  color: var(--panel-ink, var(--tint-blue-ink));
+  border-radius: 6px;
+  padding: 0.75rem;
+}
+
+.landing-action-block input {
+  background: var(--card-bg);
+  color: var(--ink);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  width: 100%;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.btn-primary {
+  background: #238a54;
+  border-color: #2fae6c;
+  color: #f5fff8;
+}
+
+.landing-error {
+  color: #b3261e;
+  font-size: 0.8rem;
+  margin-top: 0.75rem;
+  min-height: 1em;
+}
+
+/* Lobby screen (in a room, match not started yet) — sits directly on the dark body, so
+   headings/hints stay the light body text color; only the seat/picker cards below are
+   tinted+light. */
+.lobby-screen {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.lobby-screen.hidden {
+  display: none;
+}
+
+.lobby-inner {
+  max-width: 1300px;
+  width: 100%;
+}
+
+.lobby-inner h2 {
+  margin: 0 0 0.4rem;
+}
+
+.room-code {
+  font-family: monospace;
+  font-size: 1.1em;
+  letter-spacing: 0.1em;
+  color: #f0b93d;
+}
+
+.lobby-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.lobby-actions button {
+  width: auto;
+  padding: 0.6rem 1.2rem;
+}
+
+#btn-leave-room {
+  background: #4a4a4a;
+}
+
+.seat-empty {
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+
+.seat-empty button {
+  margin-top: 0.5rem;
+}
+
+.seat-readonly-info {
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+.setup-seats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.lobby-other-seats {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.lobby-other-seats .setup-seat {
+  flex: 1 1 200px;
+  margin-bottom: 0;
+}
+
+.seat-compact {
+  padding: 0.4rem 0.6rem;
+}
+
+.seat-compact h3 {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.seat-compact .seat-readonly-info {
+  font-size: 0.72rem;
+  line-height: 1.4;
+}
+
+.seat-compact .seat-empty {
+  font-size: 0.72rem;
+}
+
+.lobby-my-seat {
+  background: var(--panel-bg, var(--tint-blue-bg));
+  border: 1px solid var(--panel-border, var(--tint-blue-border));
+  color: var(--panel-ink, var(--tint-blue-ink));
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+}
+
+.lobby-my-seat h3 {
+  margin: 0 0 0.3rem;
+  font-size: 0.95rem;
+}
+
+.picker-block {
+  margin-top: 0.9rem;
+}
+
+.picker-heading {
+  margin: 0 0 0.4rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--panel-ink, var(--tint-blue-ink));
+}
+
+.hint-inline {
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--ink-soft);
+  font-weight: normal;
+}
+
+.picker-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.3fr);
+  gap: 0.75rem;
+  min-height: 170px;
+}
+
+.picker-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  max-height: 220px;
+  overflow-y: auto;
+  border: 1px solid var(--panel-border, var(--tint-blue-border));
+  border-radius: 6px;
+  padding: 0.4rem;
+}
+
+.picker-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.1rem;
+  width: 100%;
+  background: var(--card-bg);
+  color: var(--ink);
+  border: 1px solid var(--card-border);
+  border-radius: 5px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.78rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.picker-item:hover {
+  border-color: #b8973f;
+}
+
+/* Currently shown in the detail panel — may or may not be the equipped choice below. */
+.picker-item.previewing {
+  border-color: #3b78c4;
+}
+
+/* The seat's actually-equipped choice (persisted, needs Confirm/Buy to change). */
+.picker-item.selected {
+  border-color: #b8790a;
+  background: #e2c688;
+}
+
+.picker-item.selected.previewing {
+  box-shadow: inset 0 0 0 2px #3b78c4;
+}
+
+.picker-confirm-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.5rem;
+}
+
+.picker-confirm-row button {
+  width: auto;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.78rem;
+}
+
+.picker-buy-error {
+  font-size: 0.72rem;
+  color: #b3261e;
+}
+
+.wallet-line {
+  font-size: 0.85rem;
+  margin: 0.2rem 0 0;
+  color: var(--panel-ink, var(--tint-blue-ink));
+}
+
+.picker-item-sub {
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+}
+
+.picker-detail {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  overflow-y: auto;
+}
+
+.picker-detail-empty {
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  margin: 0;
+}
+
+.picker-detail-name {
+  margin: 0 0 0.35rem;
+  font-size: 0.9rem;
+  color: #a3690a;
+}
+
+.picker-detail-price {
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+  font-weight: normal;
+}
+
+.picker-detail-quote {
+  font-style: italic;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  margin: 0 0 0.5rem;
+}
+
+.picker-detail-skill-label {
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  margin: 0 0 0.3rem;
+}
+
+.picker-detail-body {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0;
+  color: var(--ink);
+}
+
+.device-detail-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.device-detail-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.05rem;
+}
+
+.device-detail-name {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.device-detail-effect {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+
+.btn-start-match {
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
+  width: auto;
+  background: #238a54;
+  border-color: #2fae6c;
+  color: #f5fff8;
+}
+
+.match-screen.hidden {
+  display: none;
+}
+
+.viewing-as-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  margin: 0.5rem 0;
+}
+
+.viewing-as-row select {
+  flex: 1;
+  background: var(--card-bg);
+  color: var(--ink);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 0.3rem;
+}
+
+.log-heading {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ink-soft);
+  margin: 0.6rem 0 0.3rem;
+}
+
+/* Pre-match setup — compact "other seat" cards (own seat uses .lobby-my-seat above) */
+.setup-seat {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.setup-seat h3 {
+  margin: 0 0 0.35rem;
+  font-size: 0.8rem;
+}
+
+.device-set-list {
+  max-height: 220px;
+}
+
+/* In-match devices (own panel-block, separate from the bid form) */
+.device-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  padding: 0.35rem 0.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 5px;
+  margin-bottom: 0.3rem;
+  color: var(--ink);
+  cursor: help;
+}
+
+.device-row .device-name {
+  flex: 1;
+}
+
+.device-row.used {
+  color: var(--ink-soft);
+}
+
+.device-row button {
+  width: auto;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.7rem;
+}
+
+/* Players */
+.player-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+  border-radius: 6px;
+  padding: 0.65rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.88rem;
+}
+
+.player-card.acted {
+  border-color: #b8973f;
+}
+
+.player-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.3rem;
+}
+
+.player-name {
+  font-weight: 600;
+}
+
+.player-balance {
+  color: var(--ink-soft);
+}
+
+.player-balance.balance-hidden {
+  font-style: italic;
+}
+
+.player-role-toggle {
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.bid-slots {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0.3rem;
+}
+
+.bid-slot {
+  background: #ddd2b3;
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+  border-radius: 4px;
+  text-align: center;
+  font-size: 0.72rem;
+  padding: 0.25rem 0.1rem;
+  min-height: 2rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.bid-slot.current-round {
+  border-color: #3b78c4;
+}
+
+.bid-slot.passed {
+  color: var(--ink-soft);
+}
+
+.bid-slot.locked {
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+.bid-slot.winner {
+  border-color: #b8790a;
+  color: #8a5a10;
+  font-weight: 600;
+}
+
+/* Bid entry form */
+.bid-form input[type="number"] {
+  width: 100%;
+  background: var(--card-bg);
+  color: var(--ink);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 0.4rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.4rem;
+}
+
+.bid-quick-row {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.bid-quick-row button {
+  font-size: 0.72rem;
+  padding: 0.35rem 0.3rem;
+}
+
+.bid-action-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.bid-action-row .btn-bid {
+  background: #238a54;
+  border-color: #2fae6c;
+  color: #f5fff8;
+}
+
+.bid-action-row .btn-pass {
+  background: #4a4a4a;
+}
+
+.bid-error {
+  color: #b3261e;
+  font-size: 0.75rem;
+  margin-top: 0.4rem;
+}
+
+.waiting-note {
+  color: var(--panel-ink, var(--ink-soft));
+  font-size: 0.8rem;
+}
+
+/* Result panel */
+.result-line {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  padding: 0.2rem 0;
+}
+
+.result-line .value.positive { color: #1e7a42; font-weight: 600; }
+.result-line .value.negative { color: #b3261e; font-weight: 600; }
+
+.spillover-list {
+  margin-top: 0.4rem;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+}
+
+/* Right panel — the auction grid, mirrors the reference game's right-side grid panel.
+   Column is sized to fit the grid tightly (see the `auto` track in `main` above), so
+   this ends up flush against the right edge of the viewport without needing its own
+   flex/justify alignment — there's no leftover column space to align within. Left
+   untinted/dark on purpose: it sits right against the grid's own dark canvas below. */
+.grid-panel {
+  grid-column: 5;
+  overflow: auto;
+  padding: 1.25rem;
+}
+
+/* ---------- Nothing below this line changes — grid internals, per the explicit
+   instruction to leave the grid itself alone. ---------- */
+
+.grid {
+  background: #0c0d10;
+  border: 1px solid #2a2d33;
+  border-radius: 6px;
+  padding: 8px;
+  width: max-content;
+}
+
+.grid.grid-debug .cell-boundary {
+  outline: 1px dashed rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+}
+
+.cell-boundary {
+  background: transparent;
+}
+
+.cell {
+  cursor: pointer;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.6rem;
+  line-height: 1.1;
+  padding: 2px;
+  overflow: hidden;
+  color: #0c0d10;
+  font-weight: 600;
+}
+
+.cell--dot {
+  border-radius: 50%;
+  margin: 6px;
+}
+
+.cell--silhouette-known,
+.cell--silhouette-unknown {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85), 0 0 6px rgba(255, 255, 255, 0.5);
+}
+
+.cell--silhouette-unknown {
+  color: #cfd2d8;
+}
+
+.cell--full {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- End of untouched grid-internals block. ---------- */
+
+/* Collectibles Index overlay */
+.collectibles-index-overlay {
+  display: none;
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  width: 480px;
+  max-height: 70vh;
+  overflow-y: auto;
+  background: var(--panel-bg, var(--tint-purple-bg));
+  border: 1px solid var(--panel-border, var(--tint-purple-border));
+  color: var(--panel-ink, var(--tint-purple-ink));
+  border-radius: 8px;
+  padding: 0.75rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.collectibles-index-overlay.visible {
+  display: block;
+}
+
+.index-filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.index-filters select,
+.index-filters input {
+  background: var(--card-bg);
+  color: var(--ink);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 0.3rem;
+  font-size: 0.8rem;
+}
+
+.index-filters input {
+  flex: 1;
+}
+
+.index-count {
+  font-size: 0.75rem;
+  color: var(--panel-ink, var(--tint-purple-ink));
+  margin-bottom: 0.4rem;
+}
+
+.index-row {
+  display: grid;
+  grid-template-columns: 12px 1fr 50px 60px 80px;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  padding: 0.25rem 0.1rem;
+  border-bottom: 1px solid var(--panel-border, var(--tint-purple-border));
+}
+
+.swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.index-shape,
+.index-rarity {
+  color: var(--panel-ink, var(--tint-purple-ink));
+  opacity: 0.75;
+}
+
+.index-price {
+  text-align: right;
+}

@@ -1,0 +1,257 @@
+{
+  "_meta": {
+    "source": "Extracted directly from in-game screenshots (images/assistant info, images/device info) provided by the user. Currency amounts (prices) are kept here since they're needed for game balance/economy, unlike the general mechanics doc which drops reward amounts.",
+    "assistant_mechanic": "Exactly one Auction Assistant is chosen before a match. Its ability fires automatically on the schedule described, every match, at no cost.",
+    "device_mechanic": "Players buy one Device Set before a match (costs currency). Buying it grants ALL devices listed inside that set (3-5 individual one-time-use devices) into the player's inventory. Each individual device can be triggered manually once, during any round, via a button on the auction screen. So a Device Set with 4 devices listed gives you 4 separate single-use activations total across the match (not 4 per round) — the user confirmed: 'when you buy a device [set], you get all the 3 or 4 devices included there. You can use all [each] once.' Unused devices persist to future matches per the general mechanics doc.",
+    "verification_status": "All device sets and assistants below are user-confirmed complete and accurate against in-game screenshots — no open gaps."
+  },
+  "auctionAssistants": [
+    {
+      "name": "Adler",
+      "flavorQuote": "Those without sight are not always blind to the truth.",
+      "skillName": "Blindsense",
+      "ability": "Reveals collectible silhouettes by rarity: White in Round 1, Green in Round 2, Blue in Round 3, and Purple in Round 4."
+    },
+    {
+      "name": "Haniel",
+      "flavorQuote": "After 99 pulls, surely something good has to happen... right?",
+      "skillName": "Draw!",
+      "ability": "Reveals the rarity and silhouettes of 5 random collectibles at auction start, then reveals the rarity of 2 unknown collectibles each round after."
+    },
+    {
+      "name": "Jiuyuan",
+      "flavorQuote": "The most valuable intel always comes first, of course.",
+      "skillName": "Rose Pact Express",
+      "ability": "Reveals the silhouette of 1 highest-rarity collectible at auction start. Each following round reveals the rarity and silhouette of 1 random collectible."
+    },
+    {
+      "name": "Chiz",
+      "flavorQuote": "Go on, take a bite of the golden apple.",
+      "skillName": "Afternoon Tea",
+      "ability": "Reveals the silhouettes of 8 random collectibles at auction start. In Round 3, reveals the identities of those same 8 collectibles from Round 1."
+    },
+    {
+      "name": "Hathor",
+      "flavorQuote": "Plan first. Strike later.",
+      "skillName": "Loaded",
+      "ability": "Reveals the rarity of all collectibles at the start of Round 5."
+    },
+    {
+      "name": "Edgar",
+      "flavorQuote": "Playing it safe is still a strategy.",
+      "skillName": "Library Rules",
+      "ability": "Reveals the rarity and silhouettes of all White-, Green-, and Blue-rarity collectibles at auction start."
+    },
+    {
+      "name": "Daffodill",
+      "flavorQuote": "She sees the whole board at a glance.",
+      "skillName": "Eye Among Thousands",
+      "ability": "Reveals the total number of Purple-, Gold-, and Red-rarity collectibles at auction start."
+    },
+    {
+      "name": "Hotori",
+      "flavorQuote": "Never underestimate the eye of an antique dealer.",
+      "skillName": "River of Time",
+      "ability": "In Rounds 1-3, reveals the silhouette of 1 random collectible of unknown type. In Round 5, reveals the silhouettes of all collectibles with known rarity."
+    }
+  ],
+  "deviceSets": [
+    {
+      "name": "Basic General-Purpose Device Set",
+      "price": 2000,
+      "description": "An affordable, reliable device set ideal for beginners.",
+      "devices": [
+        { "name": "Micro Evaluation Device", "effect": "Reveals the rarity of 2 random collectibles." },
+        { "name": "Micro Size Device", "effect": "Reveals the silhouettes of 4 random collectibles." },
+        { "name": "Micro Appraisal Device", "effect": "Reveals 1 random collectible." }
+      ]
+    },
+    {
+      "name": "Basic Data Device Set",
+      "price": 2000,
+      "description": "An affordable, reliable device set ideal for beginners.",
+      "devices": [
+        { "name": "Green-rarity Count Device", "effect": "Reveals the total number of Green-rarity collectibles." },
+        { "name": "Green-rarity Average Value Device", "effect": "Reveals the average value of all Green-rarity collectibles." },
+        { "name": "Green-rarity Slot Device", "effect": "Reveals the total slots occupied by all Green-rarity collectibles." },
+        { "name": "Green-rarity Valuation Device", "effect": "Reveals the combined value of all Green-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Medium General-Purpose Device Set",
+      "price": 5000,
+      "description": "A reliable, cost-effective device set that offers solid support.",
+      "devices": [
+        { "name": "Small Evaluation Device", "effect": "Reveals the rarity of 4 random collectibles." },
+        { "name": "Small Size Device", "effect": "Reveals the silhouettes of 6 random collectibles." },
+        { "name": "Small Appraisal Device", "effect": "Reveals 2 random collectibles." },
+        { "name": "Four-Slot Average Value Device", "effect": "Reveals the average value of collectibles in 4 slots." }
+      ]
+    },
+    {
+      "name": "Medium Value Device Set",
+      "price": 5000,
+      "description": "A reliable, cost-effective device set that offers solid support.",
+      "devices": [
+        { "name": "Small Evaluation Device", "effect": "Reveals the rarity of 4 random collectibles." },
+        { "name": "Small Size Device", "effect": "Reveals the silhouettes of 6 random collectibles." },
+        { "name": "Small Appraisal Device", "effect": "Reveals 2 random collectibles." },
+        { "name": "Purple-rarity Valuation Device", "effect": "Reveals the combined value of all Purple-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Medium Quantity Device Set",
+      "price": 5000,
+      "description": "A reliable, cost-effective device set that offers solid support.",
+      "devices": [
+        { "name": "Small Evaluation Device", "effect": "Reveals the rarity of 4 random collectibles." },
+        { "name": "Small Size Device", "effect": "Reveals the silhouettes of 6 random collectibles." },
+        { "name": "Small Appraisal Device", "effect": "Reveals 2 random collectibles." },
+        { "name": "Purple-rarity Count Device", "effect": "Reveals the total number of Purple-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Antique Device Set",
+      "price": 10000,
+      "description": "Specialized device set for antique collectibles. Particularly effective in the right situation.",
+      "devices": [
+        { "name": "Antique Evaluation Device", "effect": "Reveals the rarity of 3 random Antique collectibles." },
+        { "name": "Medium Evaluation Device", "effect": "Reveals the rarity of 6 random collectibles." },
+        { "name": "Medium Size Device", "effect": "Reveals the silhouettes of 8 random collectibles." },
+        { "name": "Medium Appraisal Device", "effect": "Reveals 3 random collectibles." },
+        { "name": "Purple-rarity Average Value Device", "effect": "Reveals the average value of all Purple-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Gem Device Set",
+      "price": 10000,
+      "description": "Specialized device set for gem collectibles. Particularly effective in the right situation.",
+      "devices": [
+        { "name": "Gem Evaluation Device", "effect": "Reveals the rarity of 3 random Gem collectibles." },
+        { "name": "Medium Evaluation Device", "effect": "Reveals the rarity of 6 random collectibles." },
+        { "name": "Medium Size Device", "effect": "Reveals the silhouettes of 8 random collectibles." },
+        { "name": "Medium Appraisal Device", "effect": "Reveals 3 random collectibles." },
+        { "name": "Purple-rarity Average Value Device", "effect": "Reveals the average value of all Purple-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Tech Device Set",
+      "price": 10000,
+      "description": "Specialized device set for tech collectibles. Particularly effective in the right situation.",
+      "devices": [
+        { "name": "Tech Evaluation Device", "effect": "Reveals the rarity of 3 random Tech collectibles." },
+        { "name": "Medium Evaluation Device", "effect": "Reveals the rarity of 6 random collectibles." },
+        { "name": "Medium Size Device", "effect": "Reveals the silhouettes of 8 random collectibles." },
+        { "name": "Medium Appraisal Device", "effect": "Reveals 3 random collectibles." },
+        { "name": "Purple-rarity Average Value Device", "effect": "Reveals the average value of all Purple-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Food Device Set",
+      "price": 10000,
+      "description": "Specialized device set for food collectibles. Particularly effective in the right situation.",
+      "devices": [
+        { "name": "Food Evaluation Device", "effect": "Reveals the rarity of 3 random Food collectibles." },
+        { "name": "Medium Evaluation Device", "effect": "Reveals the rarity of 6 random collectibles." },
+        { "name": "Medium Size Device", "effect": "Reveals the silhouettes of 8 random collectibles." },
+        { "name": "Medium Appraisal Device", "effect": "Reveals 3 random collectibles." },
+        { "name": "Purple-rarity Average Value Device", "effect": "Reveals the average value of all Purple-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Daily Goods Device Set",
+      "price": 10000,
+      "description": "Specialized device set for daily goods collectibles. Particularly effective in the right situation.",
+      "devices": [
+        { "name": "Daily Goods Evaluation Device", "effect": "Reveals the rarity of 3 random Daily Goods collectibles." },
+        { "name": "Medium Evaluation Device", "effect": "Reveals the rarity of 6 random collectibles." },
+        { "name": "Medium Size Device", "effect": "Reveals the silhouettes of 8 random collectibles." },
+        { "name": "Medium Appraisal Device", "effect": "Reveals 3 random collectibles." },
+        { "name": "Purple-rarity Average Value Device", "effect": "Reveals the average value of all Purple-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Anomaly Device Set",
+      "price": 10000,
+      "description": "Specialized device set for Anomaly collectibles. Particularly effective in the right situation.",
+      "devices": [
+        { "name": "Anomaly Evaluation Device", "effect": "Reveals the rarity of 3 random Anomaly Residual collectibles." },
+        { "name": "Medium Evaluation Device", "effect": "Reveals the rarity of 6 random collectibles." },
+        { "name": "Medium Size Device", "effect": "Reveals the silhouettes of 8 random collectibles." },
+        { "name": "Medium Appraisal Device", "effect": "Reveals 3 random collectibles." },
+        { "name": "Purple-rarity Average Value Device", "effect": "Reveals the average value of all Purple-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Advanced General-Purpose Device Set",
+      "price": 20000,
+      "description": "A versatile device set that makes large collectibles easier to locate.",
+      "devices": [
+        { "name": "Medium Evaluation Device", "effect": "Reveals the rarity of 6 random collectibles." },
+        { "name": "Medium Size Device", "effect": "Reveals the silhouettes of 8 random collectibles." },
+        { "name": "Medium Appraisal Device", "effect": "Reveals 3 random collectibles." },
+        { "name": "Special Size Device", "effect": "Reveals the silhouette of 1 random collectible that occupies the most slots." },
+        { "name": "Single-Slot Average Value Device", "effect": "Reveals the average value of collectibles in 1 slot." }
+      ]
+    },
+    {
+      "name": "Premium General-Purpose Device Set",
+      "price": 50000,
+      "description": "A highly versatile device set that helps uncover collectible intel.",
+      "devices": [
+        { "name": "Large Evaluation Device", "effect": "Reveals the rarity of 8 random collectibles." },
+        { "name": "Large Size Device", "effect": "Reveals the silhouettes of 10 random collectibles." },
+        { "name": "Large Appraisal Device", "effect": "Reveals 5 random collectibles." },
+        { "name": "Gold-rarity Valuation Device", "effect": "Reveals the combined value of all Gold-rarity collectibles." },
+        { "name": "Gold-rarity Slot Device", "effect": "Reveals the total slots occupied by all Gold-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Premium Evaluation Device Set",
+      "price": 50000,
+      "description": "A specialized device set that reveals the rarity of large collectibles.",
+      "devices": [
+        { "name": "Large Evaluation Device", "effect": "Reveals the rarity of 8 random collectibles." },
+        { "name": "Large Size Device", "effect": "Reveals the silhouettes of 10 random collectibles." },
+        { "name": "Large Appraisal Device", "effect": "Reveals 5 random collectibles." },
+        { "name": "Purple-rarity Count Device", "effect": "Reveals the total number of Purple-rarity collectibles." },
+        { "name": "Gold-rarity Average Value Device", "effect": "Reveals the average value of all Gold-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Super Evaluation Device Set",
+      "price": 100000,
+      "description": "A powerful device set that uncovers a wealth of collectible intel.",
+      "devices": [
+        { "name": "Special Appraisal Device", "effect": "Reveals 1 random collectible that occupies the most slots." },
+        { "name": "Super Evaluation Device", "effect": "Reveals the rarity of 10 random collectibles." },
+        { "name": "Super Size Device", "effect": "Reveals the silhouettes of 12 random collectibles." },
+        { "name": "Super Appraisal Device", "effect": "Reveals 6 random collectibles." },
+        { "name": "Gold-rarity Count Device", "effect": "Reveals the total number of Gold-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Super Valuation Device Set",
+      "price": 150000,
+      "description": "A powerful device set designed to assess the value of large collectibles.",
+      "devices": [
+        { "name": "Special Valuation Device", "effect": "Reveals the value of 1 random collectible that occupies the most slots." },
+        { "name": "Super Evaluation Device", "effect": "Reveals the rarity of 10 random collectibles." },
+        { "name": "Super Size Device", "effect": "Reveals the silhouettes of 12 random collectibles." },
+        { "name": "Super Appraisal Device", "effect": "Reveals 6 random collectibles." },
+        { "name": "Gold-rarity Count Device", "effect": "Reveals the total number of Gold-rarity collectibles." }
+      ]
+    },
+    {
+      "name": "Supreme Device Set",
+      "price": 200000,
+      "description": "An exceptional device set that immediately reveals one collectible of the highest rarity.",
+      "devices": [
+        { "name": "Supreme Appraisal Device", "effect": "Fully reveals one random highest-rarity collectible (identity, shape, rarity, and price all at once), chosen only from collectibles that had no information revealed about them yet. Guarantees the reveal is a completely fresh item rather than one already partially known from other reveals." },
+        { "name": "Super Evaluation Device", "effect": "Reveals the rarity of 10 random collectibles." },
+        { "name": "Super Size Device", "effect": "Reveals the silhouettes of 12 random collectibles." },
+        { "name": "Super Appraisal Device", "effect": "Reveals 6 random collectibles." }
+      ]
+    }
+  ]
+}

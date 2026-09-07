@@ -1,0 +1,2002 @@
+[
+  {
+    "id": "C001",
+    "name": "Golden Koi Statue",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 22668888,
+    "weight": 1.0,
+    "sizeX": 4,
+    "sizeY": 4
+  },
+  {
+    "id": "C002",
+    "name": "Pendragon Model",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 20171210,
+    "weight": 1.0,
+    "sizeX": 5,
+    "sizeY": 5
+  },
+  {
+    "id": "C003",
+    "name": "Eternal Heart",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 1314520,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C004",
+    "name": "Antique Suitcase",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 577777,
+    "weight": 6.0,
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  {
+    "id": "C005",
+    "name": "Unknown Access Card",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 366112,
+    "weight": 9.0,
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  {
+    "id": "C006",
+    "name": "White Dragon King",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 300000,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 4
+  },
+  {
+    "id": "C007",
+    "name": "Ghostfire Wisp",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 260423,
+    "weight": 6.0,
+    "sizeX": 3,
+    "sizeY": 3
+  },
+  {
+    "id": "C008",
+    "name": "Nine-Bite Snack Box",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 240208,
+    "weight": 7.0,
+    "sizeX": 3,
+    "sizeY": 3
+  },
+  {
+    "id": "C009",
+    "name": "Portable Folding Screen",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 239342,
+    "weight": 8.0,
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  {
+    "id": "C010",
+    "name": "Preserved Flower Wreath",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 200201,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C011",
+    "name": "Slender Lotus Vase",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 101860,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C012",
+    "name": "Lustrous Jade",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 81088,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 4
+  },
+  {
+    "id": "C013",
+    "name": "Thoth USB Drive",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 76008,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C014",
+    "name": "\"Geometric\" Decor",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 61803,
+    "weight": 8.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C015",
+    "name": "Chaotic Core",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 61740,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C016",
+    "name": "K01 Model",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 59440,
+    "weight": 5.0,
+    "sizeX": 4,
+    "sizeY": 4
+  },
+  {
+    "id": "C017",
+    "name": "Whalesong",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 52000,
+    "weight": 9.0,
+    "sizeX": 4,
+    "sizeY": 4
+  },
+  {
+    "id": "C018",
+    "name": "Teardrop",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 50000,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C019",
+    "name": "Starshaker",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 31618,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C020",
+    "name": "Crunchy Tempura Rice Bowl",
+    "category": null,
+    "rarity": "Red",
+    "basePrice": 29977,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C021",
+    "name": "Giovanni's Gilded Statue",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 271827,
+    "weight": 10.0,
+    "sizeX": 4,
+    "sizeY": 5
+  },
+  {
+    "id": "C022",
+    "name": "Flatbread",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 202798,
+    "weight": 9.0,
+    "sizeX": 4,
+    "sizeY": 5
+  },
+  {
+    "id": "C023",
+    "name": "Canned Imaginadough",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 124816,
+    "weight": 9.0,
+    "sizeX": 4,
+    "sizeY": 3
+  },
+  {
+    "id": "C024",
+    "name": "Golden Arowana",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 111111,
+    "weight": 9.0,
+    "sizeX": 4,
+    "sizeY": 1
+  },
+  {
+    "id": "C025",
+    "name": "Coco Stripe",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 101537,
+    "weight": 9.0,
+    "sizeX": 4,
+    "sizeY": 3
+  },
+  {
+    "id": "C026",
+    "name": "A Moment's Pause",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 88888,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C027",
+    "name": "Scepter Called Prestige",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 77777,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C028",
+    "name": "Blue and White Porcelain Vase",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 62456,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 4
+  },
+  {
+    "id": "C029",
+    "name": "Orrery",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 51077,
+    "weight": 7.0,
+    "sizeX": 5,
+    "sizeY": 5
+  },
+  {
+    "id": "C030",
+    "name": "Asahi Inori Figurine",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 30264,
+    "weight": 7.0,
+    "sizeX": 3,
+    "sizeY": 3
+  },
+  {
+    "id": "C031",
+    "name": "Sea Salt Deep in the Heart",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 30211,
+    "weight": 9.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C032",
+    "name": "Your Fitness Buddy!",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 27246,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 5
+  },
+  {
+    "id": "C033",
+    "name": "Wheelchair Model",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 27159,
+    "weight": 5.0,
+    "sizeX": 3,
+    "sizeY": 3
+  },
+  {
+    "id": "C034",
+    "name": "Kokoro Rider L1 - Ultimate Skill",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 22847,
+    "weight": 8.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C035",
+    "name": "Kokoro Rider L2 - Nimbus Flash",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 22770,
+    "weight": 8.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C036",
+    "name": "Whisperseed",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 22336,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C037",
+    "name": "Kokoro Rider L3 - Spartan Spirit",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 22297,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C038",
+    "name": "Kaleidoscope",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 21012,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C039",
+    "name": "Vine-Pattern Chopsticks",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 20238,
+    "weight": 8.0,
+    "sizeX": 3,
+    "sizeY": 1
+  },
+  {
+    "id": "C040",
+    "name": "Oceanic Dewdrops",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 19926,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C041",
+    "name": "Cloudcutter",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 18288,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 5
+  },
+  {
+    "id": "C042",
+    "name": "Crown Called Nobility",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 18193,
+    "weight": 6.0,
+    "sizeX": 3,
+    "sizeY": 1
+  },
+  {
+    "id": "C043",
+    "name": "Universal Adapter",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 18031,
+    "weight": 8.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C044",
+    "name": "Spring Sheath",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 15309,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 4
+  },
+  {
+    "id": "C045",
+    "name": "Blueflame Spark Plug",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 15108,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C046",
+    "name": "Snowfall Emerald",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 15037,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C047",
+    "name": "Weather Guide",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 15024,
+    "weight": 7.0,
+    "sizeX": 3,
+    "sizeY": 1
+  },
+  {
+    "id": "C048",
+    "name": "Knight Decal",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 12164,
+    "weight": 9.0,
+    "sizeX": 3,
+    "sizeY": 1
+  },
+  {
+    "id": "C049",
+    "name": "Cubox Technologies Stylus",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 12116,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C050",
+    "name": "Cubox Technologies Power Bank",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 11981,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C051",
+    "name": "Freewire Cable",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 11974,
+    "weight": 5.0,
+    "sizeX": 3,
+    "sizeY": 1
+  },
+  {
+    "id": "C052",
+    "name": "Crimson Gem",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 9938,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C053",
+    "name": "Laurel Crown",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 7648,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C054",
+    "name": "Grand Slam Hand Roll",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 7610,
+    "weight": 8.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C055",
+    "name": "Silent Petal",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 7547,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C056",
+    "name": "Cubox Technologies Smartwatch",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 7500,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C057",
+    "name": "Starfish",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 5555,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C058",
+    "name": "Page 23",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 5047,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C059",
+    "name": "Light Cube",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 5041,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C060",
+    "name": "Sunset Pearl",
+    "category": null,
+    "rarity": "Gold",
+    "basePrice": 4975,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C061",
+    "name": "Ares Treadmill",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 24180,
+    "weight": 9.0,
+    "sizeX": 4,
+    "sizeY": 3
+  },
+  {
+    "id": "C062",
+    "name": "Digital Camera",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 18363,
+    "weight": 8.0,
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  {
+    "id": "C063",
+    "name": "Starseeker Telescope",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 18317,
+    "weight": 6.0,
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  {
+    "id": "C064",
+    "name": "Portrait with Flowers",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 18075,
+    "weight": 8.0,
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  {
+    "id": "C065",
+    "name": "Ares Exercise Bike",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 17847,
+    "weight": 10.0,
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  {
+    "id": "C066",
+    "name": "Snowfall Snow Globe",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 15257,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C067",
+    "name": "Caged Nest",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 14934,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C068",
+    "name": "Cubox Technologies Tablet",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 11038,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C069",
+    "name": "Cup of Sunrise",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 10743,
+    "weight": 7.0,
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  {
+    "id": "C070",
+    "name": "Nacupeda Model",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 10029,
+    "weight": 8.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C071",
+    "name": "Phonograph",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 9946,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C072",
+    "name": "Smart Pen Holder",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 8177,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C073",
+    "name": "Golden Crescent",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 8128,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C074",
+    "name": "Azure Hairpin",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 8065,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C075",
+    "name": "Song of the Gladiator",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 8019,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C076",
+    "name": "Blue and White Porcelain Bowl",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 7996,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C077",
+    "name": "Strange Firestone",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 7639,
+    "weight": 9.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C078",
+    "name": "Golden Hash Browns",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 7463,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C079",
+    "name": "Wandering Bannerfish",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 7225,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C080",
+    "name": "Bunny Box",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 7222,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C081",
+    "name": "Jade Cutter",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 6011,
+    "weight": 8.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C082",
+    "name": "Halfwing Squadron",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 6005,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C083",
+    "name": "Red Glaze Vase",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 5997,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C084",
+    "name": "Cubox Technologies Headset",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 5997,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C085",
+    "name": "Celadon Vase",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 5959,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C086",
+    "name": "Four-Corner Cube",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 5955,
+    "weight": 9.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C087",
+    "name": "Caged Feather Fragment",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 5096,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C088",
+    "name": "Oceanheart Blue",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 4590,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C089",
+    "name": "Universal Remote",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 4557,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C090",
+    "name": "Portable Sensor Light",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 4484,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C091",
+    "name": "Aural Crystal",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 4481,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C092",
+    "name": "Autumn Maple Paperweight",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 3675,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C093",
+    "name": "Taishou Takoyaki",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 3667,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C094",
+    "name": "Two-Tone Ice Pop",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 3666,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C095",
+    "name": "Knots",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 3652,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C096",
+    "name": "Ring Meditation",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 3644,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C097",
+    "name": "Spring Blossom Paperweight",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 3584,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C098",
+    "name": "Gluttonous Eye",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 3060,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C099",
+    "name": "Azure Melody",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 3037,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C100",
+    "name": "Moonlit Sand",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 2441,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C101",
+    "name": "Ghosted",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 2040,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C102",
+    "name": "Brine Chestnut",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 2036,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C103",
+    "name": "Sunset Blush Diamond",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 2036,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C104",
+    "name": "Firework Seafood Paella",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 2035,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C105",
+    "name": "Compressed Paper Box",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 2028,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C106",
+    "name": "Rainbow Capsule",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 2011,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C107",
+    "name": "Cotton Heart",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 2001,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C108",
+    "name": "Gilded Eardrop",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 1997,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C109",
+    "name": "Bouncy Ball",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 1992,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C110",
+    "name": "Sparkling Konpeit\u014d",
+    "category": null,
+    "rarity": "Purple",
+    "basePrice": 1988,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C111",
+    "name": "Definitely-Fished-This-Myself Fish",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 9952,
+    "weight": 5.0,
+    "sizeX": 5,
+    "sizeY": 5
+  },
+  {
+    "id": "C112",
+    "name": "Cubox Technologies Phone",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 8848,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C113",
+    "name": "LCD TV",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 8135,
+    "weight": 9.0,
+    "sizeX": 4,
+    "sizeY": 3
+  },
+  {
+    "id": "C114",
+    "name": "Artwork: Deep Forest",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 6069,
+    "weight": 5.0,
+    "sizeX": 3,
+    "sizeY": 3
+  },
+  {
+    "id": "C115",
+    "name": "Wake-up Wham",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 4843,
+    "weight": 9.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C116",
+    "name": "Navigator's Telescope",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 4840,
+    "weight": 5.0,
+    "sizeX": 3,
+    "sizeY": 2
+  },
+  {
+    "id": "C117",
+    "name": "Beacon Ray",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 4034,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C118",
+    "name": "Smoky Amethyst",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3987,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C119",
+    "name": "Scale Pattern",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3677,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C120",
+    "name": "Broken Blade",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3665,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C121",
+    "name": "Lost Armor",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3626,
+    "weight": 6.0,
+    "sizeX": 3,
+    "sizeY": 3
+  },
+  {
+    "id": "C122",
+    "name": "Covetous Coin",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3618,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C123",
+    "name": "Soul Snatcher",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3598,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C124",
+    "name": "Doodle Board",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3502,
+    "weight": 6.0,
+    "sizeX": 4,
+    "sizeY": 1
+  },
+  {
+    "id": "C125",
+    "name": "Faded Riddle",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3351,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C126",
+    "name": "Kokoro Rider L1 - Meteoric Hunt",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3232,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C127",
+    "name": "Tomato 100 Jelly",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 3185,
+    "weight": 8.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C128",
+    "name": "Kokoro Rider L2 - Victorious Rebel",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 2439,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C129",
+    "name": "Kokoro Rider L3 - Soaring Knight",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 2432,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C130",
+    "name": "Acqua Frizzante al Limone",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 2224,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C131",
+    "name": "Broken Hilt",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 2139,
+    "weight": 8.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C132",
+    "name": "Broken Guard",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 2139,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C133",
+    "name": "Fluffy Figurine",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 2101,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C134",
+    "name": "Butterfly Badge",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 2095,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C135",
+    "name": "Cooly Cool Pain Relief",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1815,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C136",
+    "name": "Tayge Air Freshener",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1795,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C137",
+    "name": "Retro Round Table",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1682,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C138",
+    "name": "Boiling Flame",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1642,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C139",
+    "name": "Exclusive Customer Service",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1632,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C140",
+    "name": "Blue Glaze Vase",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1616,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C141",
+    "name": "Manga",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1114,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C142",
+    "name": "Silver Bell",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1094,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C143",
+    "name": "Twisty Cookies",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1021,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C144",
+    "name": "Boxer's Fighting Spirit",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1012,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C145",
+    "name": "VitalMax Energy Bar",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1012,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C146",
+    "name": "Dreamless Seed",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 1012,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C147",
+    "name": "Master Dart (TBD)",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 996,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C148",
+    "name": "Retro Lampshade",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 995,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C149",
+    "name": "Puka Sweet Dreams Marshmallow",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 995,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C150",
+    "name": "Fluffy Reply",
+    "category": null,
+    "rarity": "Blue",
+    "basePrice": 993,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C151",
+    "name": "M1000 Model",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 4081,
+    "weight": 6.0,
+    "sizeX": 4,
+    "sizeY": 4
+  },
+  {
+    "id": "C152",
+    "name": "Dark Green Vase",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 2993,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C153",
+    "name": "New flavor out now!",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 2745,
+    "weight": 6.0,
+    "sizeX": 3,
+    "sizeY": 3
+  },
+  {
+    "id": "C154",
+    "name": "DynamiK Triangle",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1822,
+    "weight": 5.0,
+    "sizeX": 3,
+    "sizeY": 1
+  },
+  {
+    "id": "C155",
+    "name": "Lotus C198 Record Player",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1624,
+    "weight": 8.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C156",
+    "name": "Baking Buddies Matcha Powder",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1353,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C157",
+    "name": "Danzaburou Doll",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1220,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C158",
+    "name": "Handheld Console",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1216,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C159",
+    "name": "Cruise Skates",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1210,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C160",
+    "name": "Colorful T-Rex",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1197,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C161",
+    "name": "Drifting Kite",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1072,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C162",
+    "name": "Colorful Tailfin",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1070,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C163",
+    "name": "Ebisu Royal Tower",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1056,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C164",
+    "name": "On Track",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1055,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C165",
+    "name": "Chiyo Family Brew",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1046,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C166",
+    "name": "Brittle Rusted Blade",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1046,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C167",
+    "name": "Chip-Eating Finger Washer",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 1040,
+    "weight": 10.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C168",
+    "name": "Dream Cocoon",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 918,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C169",
+    "name": "Little Sparrow",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 911,
+    "weight": 8.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C170",
+    "name": "Ink-Stained Vase",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 909,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C171",
+    "name": "Charcoal Grilled Mackerel",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 893,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C172",
+    "name": "Fluffy Approval",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 813,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C173",
+    "name": "Golden Moon",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 610,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C174",
+    "name": "Fluffball",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 602,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C175",
+    "name": "Geometric Light",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 561,
+    "weight": 8.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C176",
+    "name": "Charcoal Grilled Crispy BBQ",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 557,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C177",
+    "name": "Bouncy Ball",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 548,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C178",
+    "name": "Soap",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 509,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C179",
+    "name": "Golden Flying Ball",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 498,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C180",
+    "name": "Gold Gilded Basin",
+    "category": null,
+    "rarity": "Green",
+    "basePrice": 496,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C181",
+    "name": "Cubox Portable Player",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 611,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 3
+  },
+  {
+    "id": "C182",
+    "name": "Cheese",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 366,
+    "weight": 5.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C183",
+    "name": "Clearblue Shell",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 356,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C184",
+    "name": "Cockroach! Cockroach!",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 278,
+    "weight": 6.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C185",
+    "name": "Apex",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 277,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 2
+  },
+  {
+    "id": "C186",
+    "name": "Artwork: Flower Field",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 241,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C187",
+    "name": "Artwork: Deconstruction",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 240,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C188",
+    "name": "Bed Sheet",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 239,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 3
+  },
+  {
+    "id": "C189",
+    "name": "Playing Cards",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 183,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C190",
+    "name": "Fresh Egg",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 178,
+    "weight": 8.0,
+    "sizeX": 1,
+    "sizeY": 2
+  },
+  {
+    "id": "C191",
+    "name": "Blade Forging Stone",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 167,
+    "weight": 7.0,
+    "sizeX": 2,
+    "sizeY": 1
+  },
+  {
+    "id": "C192",
+    "name": "Carved Floral Bowl",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 110,
+    "weight": 8.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C193",
+    "name": "Rain-sweeping Dust",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 110,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C194",
+    "name": "Fuzzy Cloud",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 101,
+    "weight": 8.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C195",
+    "name": "Cool-lala Spicy Snack",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 100,
+    "weight": 10.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C196",
+    "name": "Brand New Marble",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 100,
+    "weight": 6.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C197",
+    "name": "Buni Fruit",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 99,
+    "weight": 8.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C198",
+    "name": "Refreshing Glacier",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 99,
+    "weight": 7.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C199",
+    "name": "Gubichi Original Flavor Chips",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 99,
+    "weight": 5.0,
+    "sizeX": 1,
+    "sizeY": 1
+  },
+  {
+    "id": "C200",
+    "name": "Greenwood",
+    "category": null,
+    "rarity": "White",
+    "basePrice": 99,
+    "weight": 9.0,
+    "sizeX": 1,
+    "sizeY": 1
+  }
+]

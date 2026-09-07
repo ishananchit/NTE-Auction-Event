@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Going, Going, Gone! — Stage 4</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Going, Going, Gone! <span class="subtitle">— Stage 4: networking</span></h1>
+  </header>
+
+  <!-- Landing: not in a room yet. -->
+  <section id="landing-screen" class="landing-screen">
+    <div class="landing-inner">
+      <h2>Play with friends</h2>
+      <label class="field-row">
+        Your name
+        <input type="text" id="landing-name" placeholder="e.g. Kiro" maxlength="24" />
+      </label>
+
+      <div class="landing-actions">
+        <div class="landing-action-block tint-green">
+          <button id="btn-create-room" class="btn-primary">Create a room</button>
+          <p class="hint">You'll get a short code to share with friends.</p>
+        </div>
+        <div class="landing-action-block tint-blue">
+          <input type="text" id="landing-join-code" placeholder="Room code" maxlength="8" />
+          <button id="btn-join-room">Join</button>
+        </div>
+      </div>
+      <div class="landing-error" id="landing-error"></div>
+    </div>
+  </section>
+
+  <!-- Lobby: in a room, match not started yet. -->
+  <section id="lobby-screen" class="lobby-screen hidden">
+    <div class="lobby-inner">
+      <h2>Room <span id="lobby-room-code" class="room-code"></span></h2>
+      <p class="hint">Share the room code above. Each seat picks its own Assistant + Device Sets — only you can edit your own seat. Empty seats are auto-filled with bots when the host starts.</p>
+      <div id="lobby-seats" class="setup-seats-grid"></div>
+      <div class="lobby-actions">
+        <button id="btn-start-match" class="btn-start-match">Start Match (host only)</button>
+        <button id="btn-leave-room">Leave room</button>
+      </div>
+      <p class="hint" id="match-fee-hint"></p>
+      <p class="hint" id="lobby-status"></p>
+    </div>
+  </section>
+
+  <!-- Match screen: only shown once a match is active. -->
+  <main id="match-screen" class="match-screen hidden">
+    <section class="side-panel">
+      <div class="panel-block tint-slate">
+        <h2>Match</h2>
+        <p class="hint">Room <span id="match-room-code" class="room-code"></span></p>
+        <button id="btn-end-match">End match (back to lobby, host only)</button>
+      </div>
+
+      <div class="panel-block tint-green" id="players-panel">
+        <h2>Players</h2>
+        <div id="players-list"></div>
+      </div>
+
+      <div class="panel-block tint-rose">
+        <h2>Debug</h2>
+        <label class="checkbox-row">
+          <input type="checkbox" id="toggle-debug" />
+          God view: show everything revealed to anyone (public + every player's private), click to test render states
+        </label>
+        <p class="hint">
+          Off = exactly what the selected "Viewing grid as" player would really see (their own private Assistant/Device reveals + public Auctioneer Intel only) — no clicking.
+        </p>
+      </div>
+
+      <div class="panel-block tint-purple">
+        <button id="btn-collectibles-index">Collectibles Index</button>
+      </div>
+    </section>
+
+    <section class="center-panel">
+      <div class="panel-block tint-blue" id="round-panel">
+        <h2>Round <span id="round-number">-</span> <span id="round-timer" class="round-timer"></span></h2>
+        <label class="viewing-as-row">
+          Viewing grid as
+          <select id="viewing-as-select"></select>
+        </label>
+        <dl class="stats">
+          <dt>Current Estimate (for the viewed player)</dt><dd id="current-estimate">-</dd>
+        </dl>
+        <h3 class="log-heading">Public — Auctioneer Intel (everyone sees this)</h3>
+        <div id="public-log" class="intel-log"></div>
+        <h3 class="log-heading">Private — viewed player's own Assistant/Device reveals</h3>
+        <div id="private-log" class="intel-log"></div>
+      </div>
+
+      <div class="panel-block tint-amber" id="bid-entry-panel" style="display:none"></div>
+
+      <div class="panel-block tint-purple" id="devices-panel" style="display:none"></div>
+
+      <div class="panel-block tint-gold" id="result-panel" style="display:none"></div>
+    </section>
+
+    <section class="grid-panel">
+      <div id="grid" class="grid"></div>
+    </section>
+  </main>
+
+  <div id="collectibles-index-panel" class="collectibles-index-overlay tint-purple"></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
