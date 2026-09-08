@@ -113,7 +113,13 @@
     </section>
   </main>
 
-  <div id="collectibles-index-panel" class="collectibles-index-overlay tint-purple"></div>
+  <div id="collectibles-index-panel" class="collectibles-index-overlay tint-purple">
+    <div class="overlay-header">
+      <h3>Collectibles Index</h3>
+      <button type="button" id="btn-close-collectibles-index" class="overlay-close-btn" aria-label="Close">&times;</button>
+    </div>
+    <div id="collectibles-index-content" class="overlay-scroll"></div>
+  </div>
 
   <script type="module" src="js/main.js"></script>
 </body>

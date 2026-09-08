@@ -946,9 +946,13 @@ async function init() {
   });
 
   const indexPanel = document.getElementById("collectibles-index-panel");
+  const indexContent = document.getElementById("collectibles-index-content");
   document.getElementById("btn-collectibles-index").addEventListener("click", () => {
     const showing = indexPanel.classList.toggle("visible");
-    if (showing) renderCollectiblesIndex(indexPanel, state.pool);
+    if (showing) renderCollectiblesIndex(indexContent, state.pool);
+  });
+  document.getElementById("btn-close-collectibles-index").addEventListener("click", () => {
+    indexPanel.classList.remove("visible");
   });
 
   showLandingScreen();
