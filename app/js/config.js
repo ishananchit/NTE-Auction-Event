@@ -33,7 +33,7 @@ export const ROUND_THRESHOLDS = { 1: 2.0, 2: 1.6, 3: 1.3, 4: 1.1 };
 
 // How long players get to act each round, in milliseconds (§3 says 60s in the real design;
 // bumped way up here while we're still testing by hand).
-export const ROUND_MS = 600_000;
+export const ROUND_MS = 120_000;
 
 // Number of columns in the lot grid (§5a). Computed once per lot at generation time (see
 // lotGenerator.js) and synced as part of the lot so every player sees the identical layout.
