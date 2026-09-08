@@ -130,6 +130,8 @@ Each stage should be playable/testable on its own before moving to the next (Sta
 - Your own balance in the Players panel (`.player-balance`, match screen) is now bold and slightly larger (`font-weight: 700`, `1.05rem` vs. the base `0.88rem`) so it's easier to spot at a glance; other players' "hidden" placeholder was explicitly kept at the original weight/size so it stays visually secondary.
 - The Collectibles Index overlay had no way to close it except toggling the same button that opened it. Restructured it into a fixed header (title + a real "×" close button) above a separately-scrolling content area (`#collectibles-index-content`, still what `collectiblesIndex.js` renders into) instead of one scrolling block — `renderCollectiblesIndex()` clears/rebuilds its container's `innerHTML` on every open, which would have wiped out a close button placed directly inside the old single scrolling container. Verified live: the header and close button stay fixed in place while the 200-item list scrolls underneath, and clicking close hides the panel correctly.
 
+**Post-Stage-4 tuning — bot bid sizing (`bots.js`):** when a bot has a nonzero Current Estimate, its bid multiplier changed from a wide 0.5x-3.5x spread to a tighter 1x-2x (`PASS_CHANCE`/pass behavior and the separate 0-estimate "blind guess" fallback, which isn't based on Current Estimate at all, are unchanged). Verified with 2000 simulated decisions against a real mid-match estimate: every non-pass bid landed within [1.0x, 2.0x] and the ~30% pass rate was unaffected.
+
 ---
 
 ## Decided during Stage 1

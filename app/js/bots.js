@@ -12,7 +12,7 @@ export function botDecideBid(match, playerId) {
 
   if (estimate > 0) {
     if (Math.random() < PASS_CHANCE) return 0; // pass
-    const multiplier = 0.5 + Math.random() * 3; // 0.5x - 3.5x of the current estimate
+    const multiplier = 1 + Math.random(); // 1x - 2x of the current estimate
     return clampToBalance(Math.round(estimate * multiplier), player.balance);
   }
 
