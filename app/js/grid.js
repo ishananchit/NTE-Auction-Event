@@ -15,16 +15,20 @@ const FULL_REVEAL = { rarityKnown: true, shapeKnown: true, fullyRevealed: true }
  * landing on its own random layout.
  * @param {HTMLElement} container
  * @param {object} lot - from generateLot()
- * @param {{debug?: boolean, revealAll?: boolean, viewerPlayerId?: string, onChange?: () => void}} opts
+ * @param {{debug?: boolean, revealAll?: boolean, viewerPlayerId?: string, onChange?: () => void, onCellPeek?: (filter: {rarity: string|null, shape: string|null}) => void}} opts
  *   debug=true shows the "god view" (everything revealed to anyone so far, public or private, as
  *   a union — NOT full identity unless someone actually fully revealed a given item) and lets you
  *   click cells to test render states by cycling item.publicReveal. revealAll=true (the match has
  *   ended) forces every item to its fully-revealed state regardless of what was actually known to
- *   anyone, and is not clickable. Otherwise (real play, match still in progress) shows exactly
- *   what `viewerPlayerId` would see (their own private reveals + public reveals only).
+ *   anyone. Otherwise (real play, match still in progress) shows exactly what `viewerPlayerId`
+ *   would see (their own private reveals + public reveals only) — a *partially* revealed cell
+ *   (rarity-only, shape-only, or both but not identified) is clickable there (not in debug, to
+ *   avoid fighting its own cycle-reveal click) and calls `onCellPeek` with whichever of
+ *   rarity/shape is actually known, so the caller can open the Collectibles Index pre-filtered to
+ *   "what this could be" — an exact price is never shown for anything less than fully revealed.
  */
 export function renderGrid(container, lot, opts = {}) {
-  const { debug = false, revealAll = false, viewerPlayerId = null, onChange } = opts;
+  const { debug = false, revealAll = false, viewerPlayerId = null, onChange, onCellPeek } = opts;
   const { gridWidth, placements } = lot;
 
   container.innerHTML = "";
@@ -63,11 +67,23 @@ export function renderGrid(container, lot, opts = {}) {
     styleSpan(el, span.x, span.y, span.w, span.h);
     el.style.background = span.fill;
 
+    const shapeKey = `${item.sizeX}x${item.sizeY}`;
+    const peekFilter =
+      span.kind === "dot"
+        ? { rarity: item.rarity, shape: null }
+        : span.kind === "silhouette-unknown"
+          ? { rarity: null, shape: shapeKey }
+          : span.kind === "silhouette-known"
+            ? { rarity: item.rarity, shape: shapeKey }
+            : null;
+
     if (span.kind === "full") {
       el.textContent = item.name;
       el.title = `${item.name} — ${item.basePrice.toLocaleString()}`;
     } else if (debug) {
       el.title = `${item.name} (${item.rarity}, ${item.sizeX}x${item.sizeY})`;
+    } else if (peekFilter && onCellPeek) {
+      el.title = "Click to see the Collectibles Index filtered to what's known about this item.";
     }
 
     if (debug) {
@@ -77,6 +93,8 @@ export function renderGrid(container, lot, opts = {}) {
         item.publicReveal = cycleReveal(item.publicReveal);
         onChange?.();
       });
+    } else if (peekFilter && onCellPeek) {
+      el.addEventListener("click", () => onCellPeek(peekFilter));
     }
 
     container.appendChild(el);

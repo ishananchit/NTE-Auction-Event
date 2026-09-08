@@ -625,6 +625,22 @@ function render() {
     revealAll: match.status !== "bidding",
     viewerPlayerId: state.viewingPlayerId,
     onChange: render,
+    onCellPeek: openCollectiblesIndex,
+  });
+}
+
+/**
+ * Open (or re-filter, if already open) the Collectibles Index. With no filters this is the
+ * plain "browse everything" view (the sidebar button); grid.js's onCellPeek calls this with
+ * whichever of rarity/shape a partially-revealed cell has actually granted, so a player can see
+ * every item matching what they currently know about it without ever being shown an exact price
+ * for something that isn't fully revealed.
+ */
+function openCollectiblesIndex(filters = {}) {
+  document.getElementById("collectibles-index-panel").classList.add("visible");
+  renderCollectiblesIndex(document.getElementById("collectibles-index-content"), state.pool, {
+    initialRarity: filters.rarity || "",
+    initialShape: filters.shape || "",
   });
 }
 
@@ -945,14 +961,16 @@ async function init() {
     render();
   });
 
-  const indexPanel = document.getElementById("collectibles-index-panel");
-  const indexContent = document.getElementById("collectibles-index-content");
   document.getElementById("btn-collectibles-index").addEventListener("click", () => {
-    const showing = indexPanel.classList.toggle("visible");
-    if (showing) renderCollectiblesIndex(indexContent, state.pool);
+    const indexPanel = document.getElementById("collectibles-index-panel");
+    if (indexPanel.classList.contains("visible")) {
+      indexPanel.classList.remove("visible");
+    } else {
+      openCollectiblesIndex();
+    }
   });
   document.getElementById("btn-close-collectibles-index").addEventListener("click", () => {
-    indexPanel.classList.remove("visible");
+    document.getElementById("collectibles-index-panel").classList.remove("visible");
   });
 
   showLandingScreen();

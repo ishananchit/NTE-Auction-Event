@@ -7,7 +7,14 @@ import { RARITY_COLORS } from "./revealState.js";
 
 const RARITIES = ["White", "Green", "Blue", "Purple", "Gold", "Red"];
 
-export function renderCollectiblesIndex(container, pool) {
+/**
+ * @param {{initialRarity?: string, initialShape?: string}} opts - pre-select the Rarity/Shape
+ *   filters (e.g. so clicking a partially-revealed grid cell during a match can open this
+ *   already filtered to "what's known so far" — see main.js's grid onCellPeek wiring). Empty
+ *   string (the default) means "All" for that filter, same as the dropdown's own default option.
+ */
+export function renderCollectiblesIndex(container, pool, opts = {}) {
+  const { initialRarity = "", initialShape = "" } = opts;
   container.innerHTML = "";
   container.classList.add("collectibles-index"); // don't clobber caller's own classes (e.g. overlay/visible)
 
@@ -18,6 +25,7 @@ export function renderCollectiblesIndex(container, pool) {
   rarityFilter.innerHTML =
     `<option value="">All rarities</option>` +
     RARITIES.map((r) => `<option value="${r}">${r}</option>`).join("");
+  rarityFilter.value = initialRarity;
 
   const shapes = [...new Set(pool.map((it) => `${it.sizeX}x${it.sizeY}`))].sort(
     (a, b) => a.localeCompare(b, undefined, { numeric: true })
@@ -26,6 +34,7 @@ export function renderCollectiblesIndex(container, pool) {
   shapeFilter.innerHTML =
     `<option value="">All shapes</option>` +
     shapes.map((s) => `<option value="${s}">${s}</option>`).join("");
+  shapeFilter.value = initialShape;
 
   const nameFilter = document.createElement("input");
   nameFilter.type = "text";
