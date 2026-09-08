@@ -132,6 +132,8 @@ Each stage should be playable/testable on its own before moving to the next (Sta
 
 **Post-Stage-4 tuning — bot bid sizing (`bots.js`):** when a bot has a nonzero Current Estimate, its bid multiplier changed from a wide 0.5x-3.5x spread to a tighter 1x-2x (`PASS_CHANCE`/pass behavior and the separate 0-estimate "blind guess" fallback, which isn't based on Current Estimate at all, are unchanged). Verified with 2000 simulated decisions against a real mid-match estimate: every non-pass bid landed within [1.0x, 2.0x] and the ~30% pass rate was unaffected.
 
+**Post-Stage-4 fix — removed the "blind guess" bid entirely (user-reported):** user saw a bot bid ~2.8M on a lot actually worth ~900k and asked whether Current Estimate was being computed differently for bots. It isn't (`bots.js` calls the exact same `currentEstimate()` humans see) — traced it instead to the *other* branch, used only when a bot has zero info revealed to it: `blindEstimate = poolStats.poolAverage * lot.items.length`. `poolAverage` (245,166) is badly skewed by just 2 extreme-outlier items (22.6M and 20.1M) out of 200, versus a pool median of only ~4,000 — so for a typical 30-60 item lot, `blindEstimate` alone comes out to 7.3M-14.7M, making even the "cautious" 0.1x-0.8x slice of it (735k-11.7M) wildly disconnected from what any specific lot is actually worth. Per explicit user instruction, removed this fallback entirely rather than fixing the underlying statistic (e.g. switching to a median) — a bot with zero information now simply passes (bid 0) every time, full stop. Verified: forced a match where a bot's Current Estimate was genuinely 0 and confirmed 1000/1000 decisions returned exactly 0.
+
 ---
 
 ## Decided during Stage 1

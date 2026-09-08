@@ -4,28 +4,22 @@
 import { currentEstimate } from "./auctionEngine.js";
 
 const PASS_CHANCE = 0.3;
-const BLIND_PASS_CHANCE = 0.1; // still a guess, but bots shouldn't fold blind most of the time
 
 export function botDecideBid(match, playerId) {
   const player = match.players.find((p) => p.id === playerId);
   const estimate = currentEstimate(match, playerId); // this bot's own Current Estimate — Assistant/Device reveals are private per §8
 
-  if (estimate > 0) {
-    if (Math.random() < PASS_CHANCE) return 0; // pass
-    const multiplier = 1 + Math.random(); // 1x - 2x of the current estimate
-    return clampToBalance(Math.round(estimate * multiplier), player.balance);
-  }
-
   // Nothing revealed to THIS player yet (bots don't use devices, and may not have an assistant
-  // with an early schedule entry) — Current Estimate itself must stay 0 to match the real game's
-  // "estimate starts near-zero" behavior, but a bot still has *some* rough intuition for what
-  // an average lot is worth (same "pool-wide averages are public knowledge" reasoning as
-  // poolStats.js), so it isn't stuck always folding. Deliberately more cautious/lower-multiplier
-  // than the informed case above, since it really is a guess.
-  if (Math.random() < BLIND_PASS_CHANCE) return 0; // pass
-  const blindEstimate = match.poolStats.poolAverage * match.lot.items.length;
-  const multiplier = 0.1 + Math.random() * 0.7; // 0.1x - 0.8x of the blind guess
-  return clampToBalance(Math.round(blindEstimate * multiplier), player.balance);
+  // with an early schedule entry) — no basis to bid on, so just pass. (Previously this fell back
+  // to a "blind guess" off match.poolStats.poolAverage, but that average is badly skewed by a
+  // couple of extreme-outlier items in the pool, making blind bids wildly disconnected from any
+  // given lot's real value — e.g. multi-million-currency bids on a lot worth a few hundred
+  // thousand. Simpler and safer to just pass with zero information.)
+  if (estimate === 0) return 0;
+
+  if (Math.random() < PASS_CHANCE) return 0; // pass
+  const multiplier = 1 + Math.random(); // 1x - 2x of the current estimate
+  return clampToBalance(Math.round(estimate * multiplier), player.balance);
 }
 
 function clampToBalance(amount, balance) {
