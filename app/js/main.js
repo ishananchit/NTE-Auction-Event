@@ -138,9 +138,16 @@ function onRoomSnapshot(room) {
   state.isHost = room.hostClientId === state.clientId;
 
   if (room.phase === "lobby") {
+    const cameFromMatch = state.match !== null;
     unsubscribeHostFromActions();
     stopTick();
     state.match = null;
+    if (cameFromMatch) {
+      // The device set purchase doesn't carry over into the next match (see hostStartMatch) —
+      // re-sync the lobby's device preview to the seat's now-reset selection instead of still
+      // showing whatever was equipped for the match that just ended.
+      state.lobbyPreview.deviceSet = undefined;
+    }
     showLobbyScreen();
     renderLobby();
     return;
@@ -458,6 +465,10 @@ async function hostStartMatch() {
       // Entry fee is floored at 0 rather than blocking match start over an underfunded seat.
       player.balance = Math.max(0, (seat.balance ?? 0) - STARTING_MATCH_FEE);
       feeFields[`seats.${i}.balance`] = player.balance;
+      // The device set purchase is consumed by this match — a seat starts each new match with no
+      // device set equipped (and must buy again in the lobby), even if it just used one, so this
+      // can't be reused for free. The assistant stays as-is: it's free, no purchase to consume.
+      feeFields[`seats.${i}.deviceSetNames`] = [];
     } else {
       player.name = `Bot ${i + 1}`;
       player.clientId = null;
@@ -811,6 +822,12 @@ function renderBidEntry() {
 
   const prevBid = match.bids[match.round - 1]?.[playerId];
 
+  // render() re-runs on every match-state change, including other players' actions that don't
+  // affect me at all (their bid, a device use, etc.) — rebuilding the form's HTML would otherwise
+  // wipe out whatever I'm still mid-typing. Carry the existing value forward when the form was
+  // already showing (i.e. this isn't a fresh round or a transition from a different panel state).
+  const previousAmount = document.getElementById("bid-amount")?.value ?? "";
+
   const deviceRows = (player.devices || [])
     .map((d) => {
       const effect = DEVICE_DEFINITIONS[d.name]?.effect || "";
@@ -825,7 +842,7 @@ function renderBidEntry() {
   panel.innerHTML = `
     <h2>${player.name} — Round ${match.round} action${match.round === 6 ? " (tiebreak)" : ""}</h2>
     <div class="bid-form">
-      <input type="number" id="bid-amount" min="0" max="${Math.floor(player.balance)}" placeholder="Bid amount (max ${Math.floor(player.balance).toLocaleString()})" />
+      <input type="number" id="bid-amount" min="0" max="${Math.floor(player.balance)}" placeholder="Bid amount (max ${Math.floor(player.balance).toLocaleString()})" value="${previousAmount}" />
       <div class="bid-quick-row">
         ${quickTarget !== null ? `<button type="button" id="btn-quick-threshold">${threshold}x Current Estimate &rarr; ${quickTarget.toLocaleString()}</button>` : ""}
         ${prevBid ? `<button type="button" id="btn-quick-prev">Previous round bid (${prevBid.toLocaleString()})</button>` : ""}
@@ -870,6 +887,12 @@ function renderBidEntry() {
   document.getElementById("btn-submit-pass").addEventListener("click", () => {
     disableBidButtons();
     submitBidAction(0);
+  });
+  amountInput.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      document.getElementById("btn-submit-bid").click();
+    }
   });
   devicesPanel.querySelectorAll("[data-use-device]").forEach((btn) => {
     btn.addEventListener("click", () => {
