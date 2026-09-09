@@ -17,6 +17,7 @@ import {
   STARTING_MATCH_FEE,
   ROUND_THRESHOLDS,
   ROUND_MS,
+  ROUND_TRANSITION_MS,
   LOT_MIN_ITEMS,
   LOT_MAX_ITEMS,
 } from "./config.js";
@@ -51,6 +52,8 @@ const state = {
   viewingPlayerId: null, // whose grid/estimate/private-log is currently displayed (§8: reveals are per-player)
   lastAutoSyncedRound: null, // last match.round we auto-synced viewingPlayerId back to myself for — see syncViewingPlayer()
   lobbyPreview: { assistant: undefined, deviceSet: undefined }, // which assistant/device-set the info panel is currently showing (undefined = "not initialized yet", distinct from null = "(random)")
+  lastOverlayRound: null, // last match.round we've shown the "ROUND N" transition overlay for — see showRoundTransition()
+  roundOverlayHideTimer: null,
 };
 
 let hostProcessingLock = false; // serializes processActionsAsHost so overlapping snapshots don't double-apply
@@ -67,12 +70,21 @@ function showLandingScreen() {
   document.getElementById("landing-screen").classList.remove("hidden");
   document.getElementById("lobby-screen").classList.add("hidden");
   document.getElementById("match-screen").classList.add("hidden");
+  hideRoundTransition();
 }
 
 function showLobbyScreen() {
   document.getElementById("landing-screen").classList.add("hidden");
   document.getElementById("lobby-screen").classList.remove("hidden");
   document.getElementById("match-screen").classList.add("hidden");
+  hideRoundTransition();
+}
+
+/** Force-clears any pending "ROUND N" overlay — used when navigating away from the match screen
+ * so a stray timer firing later can't leave it showing over the lobby/landing screen. */
+function hideRoundTransition() {
+  clearTimeout(state.roundOverlayHideTimer);
+  document.getElementById("round-transition-overlay")?.classList.remove("visible");
 }
 
 function showMatchScreen() {
@@ -154,11 +166,13 @@ function onRoomSnapshot(room) {
   }
 
   if (room.phase === "match" && room.match) {
+    const isFreshMatch = state.match === null;
     showMatchScreen();
     document.getElementById("match-room-code").textContent = state.roomCode;
     document.getElementById("btn-end-match").style.display = state.isHost ? "inline-block" : "none";
 
     state.match = room.match;
+    if (isFreshMatch) state.lastOverlayRound = null; // new match always restarts round numbering at 1
     determineMyPlayerId();
     if (!state.viewingPlayerId || !state.match.players.some((p) => p.id === state.viewingPlayerId)) {
       state.viewingPlayerId = state.myPlayerId ?? state.match.players.find((p) => p.isBot)?.id ?? state.match.players[0].id;
@@ -478,7 +492,8 @@ async function hostStartMatch() {
     }
   }
   const match = createMatch(state.pool, players, { minSize: LOT_MIN_ITEMS, maxSize: LOT_MAX_ITEMS });
-  match.roundDeadline = Date.now() + ROUND_MS;
+  // + ROUND_TRANSITION_MS so the "ROUND 1" overlay's screen time doesn't eat into real bidding time.
+  match.roundDeadline = Date.now() + ROUND_MS + ROUND_TRANSITION_MS;
   state.botsActedForRound = -1;
   await updateRoomFields(state.roomCode, { ...feeFields, phase: "match", match });
 }
@@ -554,7 +569,8 @@ async function hostResolveIfReadyAndSync(match) {
   if (match.status === "bidding" && allEligiblePlayersActed(match)) {
     resolveRound(match);
     if (match.status === "bidding") {
-      match.roundDeadline = Date.now() + ROUND_MS;
+      // + ROUND_TRANSITION_MS so the "ROUND N" overlay's screen time doesn't eat into real bidding time.
+      match.roundDeadline = Date.now() + ROUND_MS + ROUND_TRANSITION_MS;
     }
   }
   if (match.status === "bidding") hostScheduleBotsForCurrentRound(match);
@@ -607,7 +623,7 @@ async function onTick() {
   if (!match || match.status !== "bidding" || !match.roundDeadline) return;
 
   const el = document.getElementById("round-timer");
-  if (el) el.textContent = `${Math.ceil(Math.max(0, match.roundDeadline - Date.now()) / 1000)}s`;
+  if (el) el.textContent = `${Math.ceil(Math.max(0, match.roundDeadline - Date.now()) / 1000)} s`;
 
   if (state.isHost && Date.now() >= match.roundDeadline) {
     for (const id of eligiblePlayerIds(match)) {
@@ -623,6 +639,7 @@ function render() {
   const { match, debug } = state;
   if (!match) return;
 
+  maybeShowRoundTransition(match);
   syncViewingPlayer();
   renderViewingAsSelect();
   renderPlayers();
@@ -638,6 +655,37 @@ function render() {
     onChange: render,
     onCellPeek: openCollectiblesIndex,
   });
+}
+
+/**
+ * Show a brief full-screen "ROUND N" transition once per round (including the match's very
+ * first round) — purely a local visual/audio effect, not part of the synced match state, so it
+ * fires independently on every client the moment they observe match.round change rather than
+ * needing the host to coordinate a pause. The round's own deadline already has
+ * ROUND_TRANSITION_MS built in (see hostStartMatch/hostResolveIfReadyAndSync) so this doesn't
+ * eat into anyone's real bidding time.
+ */
+function maybeShowRoundTransition(match) {
+  if (state.lastOverlayRound === match.round) return;
+  state.lastOverlayRound = match.round;
+  showRoundTransition(match.round);
+}
+
+function showRoundTransition(roundNumber) {
+  const overlay = document.getElementById("round-transition-overlay");
+  const text = document.getElementById("round-transition-text");
+  if (!overlay || !text) return;
+  text.textContent = `ROUND ${roundNumber}`;
+  overlay.classList.add("visible");
+
+  // Optional ~2s audio cue — drop a file at this path to add sound later; if it's missing (or
+  // the browser blocks autoplay) this just silently does nothing, the visual still works either way.
+  new Audio("audio/round-change.mp3").play().catch(() => {});
+
+  clearTimeout(state.roundOverlayHideTimer);
+  state.roundOverlayHideTimer = setTimeout(() => {
+    overlay.classList.remove("visible");
+  }, ROUND_TRANSITION_MS);
 }
 
 /**

@@ -179,9 +179,10 @@ button:disabled:hover {
 
 .round-timer {
   float: right;
-  font-weight: normal;
+  font-weight: 700;
   color: var(--ink-soft);
-  font-size: 0.85rem;
+  font-size: 1rem;
+  text-transform: none; /* the parent h2 forces uppercase — this is meant to read "12 s", not "12 S" */
 }
 
 .intel-log {
@@ -933,6 +934,32 @@ button:disabled:hover {
 .overlay-scroll {
   overflow-y: auto;
   min-height: 0;
+}
+
+/* "ROUND N" transition — brief full-screen darken + big text between rounds. */
+.round-transition-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.round-transition-overlay.visible {
+  display: flex;
+  opacity: 1;
+}
+
+.round-transition-text {
+  font-size: 5rem;
+  font-weight: 800;
+  color: #f5f2e8;
+  letter-spacing: 0.08em;
+  text-shadow: 0 4px 28px rgba(0, 0, 0, 0.7);
 }
 
 .index-filters {
