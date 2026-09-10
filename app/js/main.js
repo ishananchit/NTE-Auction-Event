@@ -898,13 +898,29 @@ function renderBidEntry() {
   // already showing (i.e. this isn't a fresh round or a transition from a different panel state).
   const previousAmount = document.getElementById("bid-amount")?.value ?? "";
 
+  // Only one device use allowed per round (across all of a player's devices) — see
+  // auctionEngine.js's useDevice(), which enforces the same rule server-side. Checked via the
+  // private log rather than a separate flag since a "deviceUse" entry is already recorded there
+  // every time one fires.
+  const usedDeviceThisRound = (match.privateLogs[playerId] || []).some(
+    (e) => e.kind === "deviceUse" && e.round === match.round
+  );
+
   const deviceRows = (player.devices || [])
     .map((d) => {
       const effect = DEVICE_DEFINITIONS[d.name]?.effect || "";
+      let action;
+      if (d.used) {
+        action = "used";
+      } else if (usedDeviceThisRound) {
+        action = `<span class="device-locked-note">locked this round</span>`;
+      } else {
+        action = `<button type="button" data-use-device="${d.id}">Use</button>`;
+      }
       return `
       <div class="device-row${d.used ? " used" : ""}" title="${effect}">
         <span class="device-name">${d.name}</span>
-        ${d.used ? "used" : `<button type="button" data-use-device="${d.id}">Use</button>`}
+        ${action}
       </div>`;
     })
     .join("");
@@ -930,7 +946,7 @@ function renderBidEntry() {
     devicesPanel.style.display = "block";
     devicesPanel.innerHTML = `
       <h2>Devices</h2>
-      <p class="hint" style="margin:0 0 0.5rem;">Usable any round, one-time use each. Reveals are private to you only.</p>
+      <p class="hint" style="margin:0 0 0.5rem;">One device per round, one-time use each. Reveals are private to you only.</p>
       ${deviceRows}
     `;
   } else {

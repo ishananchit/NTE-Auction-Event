@@ -25,12 +25,17 @@ export const DEVICE_DEFINITIONS = {
   "Purple-rarity Count Device": { effectType: "count", params: { rarity: "Purple" }, effect: "Reveals the total number of Purple-rarity collectibles." },
   "Purple-rarity Average Value Device": { effectType: "averageValue", params: { rarity: "Purple" }, effect: "Reveals the average value of all Purple-rarity collectibles." },
 
-  "Antique Evaluation Device": { effectType: "evaluation", params: { count: 3, category: "Antique" }, effect: "Reveals the rarity of 3 random Antique collectibles." },
-  "Gem Evaluation Device": { effectType: "evaluation", params: { count: 3, category: "Gem" }, effect: "Reveals the rarity of 3 random Gem collectibles." },
-  "Tech Evaluation Device": { effectType: "evaluation", params: { count: 3, category: "Tech" }, effect: "Reveals the rarity of 3 random Tech collectibles." },
-  "Food Evaluation Device": { effectType: "evaluation", params: { count: 3, category: "Food" }, effect: "Reveals the rarity of 3 random Food collectibles." },
-  "Daily Goods Evaluation Device": { effectType: "evaluation", params: { count: 3, category: "Daily Goods" }, effect: "Reveals the rarity of 3 random Daily Goods collectibles." },
-  "Anomaly Evaluation Device": { effectType: "evaluation", params: { count: 3, category: "Anomaly" }, effect: "Reveals the rarity of 3 random Anomaly Residual collectibles." },
+  // Category-filtered devices (used to require an item.category match) are now plain
+  // rarity+silhouette reveals — collectible category data was never filled into the spreadsheet
+  // (see HANDOFF.md "Known gaps"), so the old category filter silently matched zero items and
+  // these devices were complete duds. Kept one per Device Set (still named/keyed by the set's
+  // theme) rather than deleting them, since they're each that set's flagship device.
+  "Antique Evaluation Device": { effectType: "rarityAndSize", params: { count: 3 }, effect: "Reveals the rarity and silhouette of 3 random collectibles." },
+  "Gem Evaluation Device": { effectType: "rarityAndSize", params: { count: 3 }, effect: "Reveals the rarity and silhouette of 3 random collectibles." },
+  "Tech Evaluation Device": { effectType: "rarityAndSize", params: { count: 3 }, effect: "Reveals the rarity and silhouette of 3 random collectibles." },
+  "Food Evaluation Device": { effectType: "rarityAndSize", params: { count: 3 }, effect: "Reveals the rarity and silhouette of 3 random collectibles." },
+  "Daily Goods Evaluation Device": { effectType: "rarityAndSize", params: { count: 3 }, effect: "Reveals the rarity and silhouette of 3 random collectibles." },
+  "Anomaly Evaluation Device": { effectType: "rarityAndSize", params: { count: 3 }, effect: "Reveals the rarity and silhouette of 3 random collectibles." },
 
   "Medium Evaluation Device": { effectType: "evaluation", params: { count: 6 }, effect: "Reveals the rarity of 6 random collectibles." },
   "Medium Size Device": { effectType: "size", params: { count: 8 }, effect: "Reveals the silhouettes of 8 random collectibles." },

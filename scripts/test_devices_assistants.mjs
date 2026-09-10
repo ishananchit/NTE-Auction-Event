@@ -95,20 +95,58 @@ function knownTo(lot, playerId, flag) {
   check("useDevice: rejects unknown device id", threw);
 }
 
-// --- Category-filtered device with no matching category data (known current limitation) ---
+// --- Former category-filtered device ("Antique Evaluation Device" etc.) now reveals rarity+silhouette
+// of 3 random collectibles unrestricted, since category data doesn't exist in the collectible pool
+// (see HANDOFF.md "Known gaps") — the old category filter used to make these devices no-op duds.
 {
   const m = freshMatch();
   m.players[0].devices = instantiateDevices(["Antique Device Set"]);
   const antiqueDevice = m.players[0].devices.find((d) => d.name === "Antique Evaluation Device");
+  // rarityAndSize's selection strategy excludes items whose shape is already known (see
+  // resolveTargets/REQUIRES_FLAG in effects.js/itemSelection.js), so the newly-shape-known set
+  // after firing is guaranteed to be exactly this device's 3 targets — round 1's Auctioneer Intel
+  // (AUCTIONEER_INTEL_ROUNDS includes round 1) may separately reveal some items' *rarity* only,
+  // so we isolate the device's own effect via this shape-known delta rather than an absolute count.
+  const shapeKnownBefore = new Set(knownTo(m.lot, "p1", "shapeKnown").map((it) => it.instanceId));
   let threw = false;
   try {
     useDevice(m, "p1", antiqueDevice.id);
   } catch {
     threw = true;
   }
-  check("useDevice: category-filtered device with 0 matches doesn't throw", !threw);
+  check("useDevice: former category-filtered device doesn't throw", !threw);
   const logEntry = m.privateLogs.p1.find((e) => e.deviceName === "Antique Evaluation Device");
-  check("useDevice: category-filtered device logs 0 collectibles", logEntry && logEntry.text.includes("0 collectible"));
+  check("useDevice: former category-filtered device now reveals 3 collectibles", logEntry && logEntry.text.includes("3 collectible"));
+  const newlyShapeKnown = knownTo(m.lot, "p1", "shapeKnown").filter((it) => !shapeKnownBefore.has(it.instanceId));
+  check(
+    "useDevice: former category-filtered device reveals both rarity and silhouette",
+    newlyShapeKnown.length === 3 && newlyShapeKnown.every((it) => effectiveReveal(it, "p1").rarityKnown)
+  );
+}
+
+// --- Only one device usable per round, across all of a player's devices ---
+{
+  const m = freshMatch();
+  m.players[0].devices = instantiateDevices(["Basic General-Purpose Device Set"]);
+  const [first, second] = m.players[0].devices;
+  useDevice(m, "p1", first.id);
+  let threw = false;
+  try {
+    useDevice(m, "p1", second.id);
+  } catch {
+    threw = true;
+  }
+  check("useDevice: rejects a second device in the same round", threw);
+
+  // Once a new round starts, the per-round lock resets — the device itself is still one-time-use.
+  m.round = 2;
+  threw = false;
+  try {
+    useDevice(m, "p1", second.id);
+  } catch {
+    threw = true;
+  }
+  check("useDevice: allows one device use in a new round", !threw);
 }
 
 // --- Assistant: private to the owner, invisible to everyone else, logged privately ---

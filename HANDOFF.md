@@ -94,10 +94,31 @@ vanilla JS + HTML + CSS. This was a deliberate Stage-1 choice to keep GitHub Pag
 - **Session wallet is per-room, not cross-session.** No backend/auth means currency persists across
   matches *within one room* but resets if you reload into a new room. This is intentional scope,
   not a bug — see the "session wallet" entry in `implementation-plan.md`.
-- **Category-filtered devices are no-ops** — category data was never filled into the collectibles
-  spreadsheet, so any device that filters by category (e.g. "Antique Evaluation Device") currently
-  matches nothing. Known limitation from Stage 3, not revisited.
 - **Two optional sound effects have no audio file yet** — see "In-flight / just landed" below.
+
+## Devices — category filter removed (no longer a gap, see below)
+
+The 6 devices that used to filter by collectible category (`"Antique Evaluation Device"`, `"Gem
+Evaluation Device"`, `"Tech Evaluation Device"`, `"Food Evaluation Device"`, `"Daily Goods
+Evaluation Device"`, `"Anomaly Evaluation Device"` in `deviceCatalog.js`) were dead weight — since
+category data was never filled into the collectibles spreadsheet (every item's `category` is
+`null` in `app/data/collectibles.json`), the category filter in `itemSelection.js`'s
+`selectRandom()` always matched zero items, so these devices fired and consumed their one use but
+revealed nothing. Fixed by dropping the category param and switching their `effectType` from
+`"evaluation"` to `"rarityAndSize"` — they now all read "Reveals the rarity and silhouette of 3
+random collectibles." and actually work, unrestricted (each Device Set still keeps its own
+themed-named copy — e.g. "Antique Device Set" still has its own "Antique Evaluation Device" — they
+just all now do the identical unrestricted reveal rather than a category-specific one). If real
+category data is ever added to the spreadsheet, these could be reverted to category-filtered
+`"evaluation"` devices instead — but as of now there's no plan to fill that column in.
+
+Also added: **only one device use per round** (previously a player could fire every device they
+owned in the same round). Enforced in `auctionEngine.js`'s `useDevice()` by checking whether
+`match.privateLogs[playerId]` already has a `deviceUse` entry for `match.round`; the UI
+(`renderBidEntry()` in `main.js`) mirrors this by showing "locked this round" instead of a "Use"
+button on a player's other devices once one's been used that round. This is purely a per-round
+throttle — each individual device is still separately one-time-use for the whole match, same as
+before.
 
 ## In-flight / just landed this session (verify these if picking up immediately after)
 

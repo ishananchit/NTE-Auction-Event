@@ -663,6 +663,12 @@ button:disabled:hover {
   font-size: 0.7rem;
 }
 
+.device-locked-note {
+  color: var(--ink-soft);
+  font-style: italic;
+  font-size: 0.7rem;
+}
+
 /* Players */
 .player-card {
   background: var(--card-bg);

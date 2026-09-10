@@ -75,6 +75,10 @@ export function useDevice(match, playerId, deviceId) {
   const device = (player.devices || []).find((d) => d.id === deviceId);
   if (!device) throw new Error("Unknown device.");
   if (device.used) throw new Error(`${device.name} has already been used.`);
+  const usedThisRound = (match.privateLogs[player.id] || []).some(
+    (e) => e.kind === "deviceUse" && e.round === match.round
+  );
+  if (usedThisRound) throw new Error("Only one device can be used per round.");
 
   const { text } = fireEffect(match.lot, device.effectType, device.params, {}, privateRevealTarget(playerId));
   device.used = true;
