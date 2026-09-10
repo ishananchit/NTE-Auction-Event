@@ -121,9 +121,10 @@
     <div id="collectibles-index-content" class="overlay-scroll"></div>
   </div>
 
-  <!-- Full-screen "ROUND N" transition, shown briefly between rounds (see showRoundTransition() in main.js). -->
-  <div id="round-transition-overlay" class="round-transition-overlay">
-    <div id="round-transition-text" class="round-transition-text"></div>
+  <!-- Full-screen transition overlay, reused for both the "ROUND N" effect between rounds and
+       the "SOLD TO ..." effect when a match concludes (see showTransitionOverlay() in main.js). -->
+  <div id="match-transition-overlay" class="match-transition-overlay">
+    <div id="match-transition-text" class="match-transition-text"></div>
   </div>
 
   <script type="module" src="js/main.js"></script>

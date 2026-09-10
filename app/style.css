@@ -936,8 +936,9 @@ button:disabled:hover {
   min-height: 0;
 }
 
-/* "ROUND N" transition — brief full-screen darken + big text between rounds. */
-.round-transition-overlay {
+/* Full-screen transition overlay — brief darken + big text, reused for both the "ROUND N"
+   effect between rounds and the "SOLD TO ..." effect when a match concludes. */
+.match-transition-overlay {
   display: none;
   position: fixed;
   inset: 0;
@@ -949,17 +950,18 @@ button:disabled:hover {
   transition: opacity 0.25s ease;
 }
 
-.round-transition-overlay.visible {
+.match-transition-overlay.visible {
   display: flex;
   opacity: 1;
 }
 
-.round-transition-text {
+.match-transition-text {
   font-size: 5rem;
   font-weight: 800;
   color: #f5f2e8;
   letter-spacing: 0.08em;
   text-shadow: 0 4px 28px rgba(0, 0, 0, 0.7);
+  text-align: center;
 }
 
 .index-filters {

@@ -35,10 +35,12 @@ export const ROUND_THRESHOLDS = { 1: 2.0, 2: 1.6, 3: 1.3, 4: 1.1 };
 // bumped way up here while we're still testing by hand).
 export const ROUND_MS = 120_000;
 
-// How long the "ROUND N" transition overlay covers the screen between rounds, in milliseconds
-// (see main.js's showRoundTransition()). Added on top of ROUND_MS when setting each round's
-// deadline so the overlay doesn't eat into anyone's actual bidding time.
-export const ROUND_TRANSITION_MS = 2_000;
+// How long the full-screen transition overlay covers the screen, in milliseconds — used both for
+// the "ROUND N" overlay between rounds and the "SOLD TO ..." overlay when a match concludes (see
+// main.js's showTransitionOverlay()). Added on top of ROUND_MS when setting each round's deadline
+// so the *round* overlay doesn't eat into anyone's actual bidding time (the sold overlay doesn't
+// need this — nothing is timed once the match has ended).
+export const TRANSITION_OVERLAY_MS = 2_000;
 
 // Number of columns in the lot grid (§5a). Computed once per lot at generation time (see
 // lotGenerator.js) and synced as part of the lot so every player sees the identical layout.
