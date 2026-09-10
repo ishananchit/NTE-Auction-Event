@@ -163,6 +163,10 @@ Each stage should be playable/testable on its own before moving to the next (Sta
 - `app/audio/README.md` updated to document both expected filenames (`round-change.mp3`, `match-sold.mp3`) — neither file exists yet; both are optional, silently no-op if missing.
 - Verified live end-to-end: won a lot outright with a large bid, saw "SOLD TO Tester" darken the screen (screenshot confirmed) with the correctly-revealed grid and gold result panel underneath, confirmed it auto-hides after ~2.2s, and confirmed it does **not** linger/re-trigger when returning to the lobby afterward. This test's match happened to resolve in round 1, so it didn't directly re-verify the round-N-to-round-N+1 transition path flagged as unconfirmed in the entry above — that gap is still open, though (as noted there) the mechanism has no per-round branching that would explain round 1 working and later rounds not.
 
+**Post-Stage-4 UI polish — removed the build-stage subtitle:** the "— Stage 4: networking" text next to the title (both the visible `<h1>` in `app/index.html` and the `<title>` tag) was dev-only scaffolding left over from the build stages and had no reason to be user-facing now that the game is done. Removed both; header now just reads "Going, Going, Gone!".
+
+**Docs — `HANDOFF.md` updated with the collectible-editing workflow:** added a section explaining that `collectibles-template.xlsx` is the source of truth (never hand-edit `app/data/collectibles.json`), that regenerating requires `python scripts/convert_collectibles.py`, and clarifying "Chance to Appear" semantics for anyone tuning drop rates later: it's a relative weight (doesn't need to sum to 100), decimals are fully supported (`lotGenerator.js`'s weighted draw is float-based, no integer assumption), and there is no script that auto-assigns/re-randomizes weights — `convert_collectibles.py` only passes the spreadsheet's values straight through, so editing one item's weight never affects any other item's.
+
 ---
 
 ## Decided during Stage 1

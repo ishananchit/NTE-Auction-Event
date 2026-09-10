@@ -122,6 +122,33 @@ that doesn't exist yet — silently no-ops if missing, so this isn't blocking an
 See `app/audio/README.md` for the exact expected filenames/format. No code changes needed once the
 user drops real files in.
 
+Also since this doc was first written: the "— Stage 4: networking" subtitle next to the page title
+(both the `<h1>` and the `<title>` tag in `app/index.html`) was removed — the game is presentable
+now and didn't need a visible build-stage label. If you see references to "Stage 4" elsewhere,
+that's just this project's internal stage-numbering in `implementation-plan.md`, unrelated to the
+old on-page text.
+
+## Editing collectible data (values, weights, etc.)
+
+`collectibles-template.xlsx` (repo root) is the single source of truth — `app/data/collectibles.json`
+is a **generated** file, never hand-edit it. Workflow:
+
+1. Edit the spreadsheet directly (price, rarity, size, or the "Chance to Appear" column).
+2. Regenerate the JSON: `python scripts/convert_collectibles.py`.
+3. Commit both the `.xlsx` and the regenerated `.json`.
+
+Notes on "Chance to Appear" (the per-item weight used by `lotGenerator.js`'s weighted random draw):
+- It's a **relative weight**, not a percentage — items are drawn proportionally to
+  `weight / sum(all weights)`. It does not need to sum to 100.
+- **Decimals are fine.** The draw is pure cumulative-sum + binary-search over floats
+  (`buildCumulativeWeights`/`pickIndex` in `lotGenerator.js`), no integer assumption anywhere.
+- These weights are currently **placeholder data**, not sourced from the real game (unknown/
+  unobtainable) — every item was originally assigned a random integer weight in 5–10, except the
+  2 highest-priced items which were pinned to 1 (see `going-going-gone-mechanics.md` §8). There is
+  no script that auto-assigns or re-randomizes weights — `convert_collectibles.py` only does a
+  straight passthrough of whatever's in the spreadsheet's "Chance to Appear" column, so editing a
+  cell and re-running the script will not change any other item's weight.
+
 ## Testing convention (important if you write any verification code)
 
 This project has **no persistent browser/integration test suite**. All UI and multiplayer
