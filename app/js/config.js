@@ -16,7 +16,7 @@ export const STARTING_SESSION_BALANCE = 5_000_000;
 
 // Flat fee deducted from every seated (non-bot) player's session wallet when the host starts a
 // match. Floored at 0 rather than going negative if a player can't fully cover it.
-export const STARTING_MATCH_FEE = 5_000;
+export const STARTING_MATCH_FEE = 50_000;
 
 // Which rounds get a new Auctioneer Public Intel log entry (§5b). Confirmed in-game: NOT every
 // round gets one — screenshots showed Round 1 and Round 3 each with their own entry, so a

@@ -5,7 +5,7 @@
     "category": null,
     "rarity": "Red",
     "basePrice": 22668888,
-    "weight": 1.0,
+    "weight": 0.5,
     "sizeX": 4,
     "sizeY": 4
   },
@@ -15,7 +15,7 @@
     "category": null,
     "rarity": "Red",
     "basePrice": 20171210,
-    "weight": 1.0,
+    "weight": 0.5,
     "sizeX": 5,
     "sizeY": 5
   },
@@ -25,7 +25,7 @@
     "category": null,
     "rarity": "Red",
     "basePrice": 1314520,
-    "weight": 5.0,
+    "weight": 2.0,
     "sizeX": 1,
     "sizeY": 1
   },
