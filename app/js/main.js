@@ -1173,9 +1173,9 @@ async function init() {
   document.getElementById("rules-modal-body").innerHTML = buildRulesHtml();
   const rulesBackdrop = document.getElementById("rules-modal-backdrop");
   const closeRules = () => rulesBackdrop.classList.remove("visible");
-  document.getElementById("btn-open-rules").addEventListener("click", () => {
-    rulesBackdrop.classList.add("visible");
-  });
+  const openRules = () => rulesBackdrop.classList.add("visible");
+  document.getElementById("btn-open-rules").addEventListener("click", openRules);
+  document.getElementById("btn-open-rules-match").addEventListener("click", openRules);
   document.getElementById("btn-close-rules").addEventListener("click", closeRules);
   rulesBackdrop.addEventListener("click", (e) => {
     if (e.target === rulesBackdrop) closeRules();
