@@ -802,20 +802,69 @@ button:disabled:hover {
   font-size: 0.8rem;
 }
 
-/* Result panel */
+/* Result panel — deliberately louder than the other side-panel cards (bigger heading, bigger
+   line items, and an oversized color-flashed Earnings block) since this is the one moment in a
+   match everyone should be able to read at a glance, not something you have to lean in for. */
+#result-panel {
+  animation: result-panel-pop 0.25s ease-out;
+}
+
+@keyframes result-panel-pop {
+  from { transform: scale(0.94); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.panel-block .result-heading {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
 .result-line {
   display: flex;
   justify-content: space-between;
-  font-size: 0.85rem;
-  padding: 0.2rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.3rem 0;
 }
 
-.result-line .value.positive { color: #1e7a42; font-weight: 600; }
-.result-line .value.negative { color: #b3261e; font-weight: 600; }
+.result-earnings {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 0.6rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 800;
+}
+
+.result-earnings-label {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.result-earnings-value {
+  font-size: 2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.result-earnings.positive {
+  background: rgba(30, 122, 66, 0.18);
+  box-shadow: 0 0 0 2px rgba(30, 122, 66, 0.45);
+  color: #175c33;
+}
+
+.result-earnings.negative {
+  background: rgba(179, 38, 30, 0.18);
+  box-shadow: 0 0 0 2px rgba(179, 38, 30, 0.45);
+  color: #8f1f18;
+}
 
 .spillover-list {
-  margin-top: 0.4rem;
-  font-size: 0.75rem;
+  margin-top: 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 600;
   color: var(--ink-soft);
 }
 

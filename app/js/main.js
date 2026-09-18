@@ -1023,7 +1023,7 @@ function renderResult() {
   panel.style.display = "block";
 
   if (match.status === "unsold") {
-    panel.innerHTML = `<h2>Lot unsold</h2><p class="hint">Nobody won this lot (all rounds passed, or Round 6 tiebreak stayed tied).</p>`;
+    panel.innerHTML = `<h2 class="result-heading">Lot unsold</h2><p class="hint">Nobody won this lot (all rounds passed, or Round 6 tiebreak stayed tied).</p>`;
     return;
   }
 
@@ -1035,11 +1035,17 @@ function renderResult() {
     .map(([id, amt]) => `${match.players.find((p) => p.id === id).name}: +${amt.toLocaleString()}`)
     .join(", ");
 
+  // Earnings gets its own big, bold, color-flashed block — that's the one number everyone should
+  // be able to read at a glance without leaning in, unlike Final Sale Price/Actual Value which are
+  // just supporting context for it.
   panel.innerHTML = `
-    <h2>Lot sold — ${winner.name}</h2>
+    <h2 class="result-heading">Lot sold — ${winner.name}</h2>
     <div class="result-line"><span>Final Sale Price</span><span>${finalSalePrice.toLocaleString()}</span></div>
     <div class="result-line"><span>Actual Value</span><span>${actualValue.toLocaleString()}</span></div>
-    <div class="result-line"><span>Earnings</span><span class="value ${earnClass}">${earnings >= 0 ? "+" : ""}${earnings.toLocaleString()}</span></div>
+    <div class="result-earnings ${earnClass}">
+      <span class="result-earnings-label">Earnings</span>
+      <span class="result-earnings-value">${earnings >= 0 ? "+" : ""}${earnings.toLocaleString()}</span>
+    </div>
     ${spilloverLines ? `<div class="spillover-list">Overpay spillover (${Math.round(OVERPAY_SPILLOVER_RATE * 100)}% each): ${spilloverLines}</div>` : ""}
   `;
 }
