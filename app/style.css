@@ -942,6 +942,84 @@ button:disabled:hover {
   min-height: 0;
 }
 
+/* "?" button that opens the game-rules popup (prep/lobby screen) */
+.btn-rules-icon {
+  width: 1.7rem;
+  height: 1.7rem;
+  padding: 0;
+  border-radius: 50%;
+  font-weight: 700;
+  line-height: 1;
+  font-size: 0.9rem;
+  vertical-align: middle;
+  margin-left: 0.35rem;
+}
+
+/* Game rules popup — dimmed backdrop + centered, scrollable card. Closable via the × button,
+   clicking the backdrop, or Escape (see main.js). */
+.rules-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 900;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.rules-modal-backdrop.visible {
+  display: flex;
+}
+
+.rules-modal {
+  background: var(--panel-bg, var(--tint-slate-bg));
+  border: 1px solid var(--panel-border, var(--tint-slate-border));
+  color: var(--panel-ink, var(--tint-slate-ink));
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  width: 100%;
+  max-width: 640px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
+}
+
+.rules-modal-body {
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.rules-modal-body h4 {
+  margin: 0.9rem 0 0.3rem;
+  font-size: 0.85rem;
+}
+
+.rules-modal-body h4:first-child {
+  margin-top: 0;
+}
+
+.rules-modal-body ul,
+.rules-modal-body ol {
+  margin: 0.2rem 0 0.6rem 1.2rem;
+  padding: 0;
+}
+
+.rules-modal-body table {
+  border-collapse: collapse;
+  margin: 0.3rem 0 0.6rem;
+  font-size: 0.78rem;
+}
+
+.rules-modal-body th,
+.rules-modal-body td {
+  border: 1px solid var(--panel-border, var(--tint-slate-border));
+  padding: 0.2rem 0.5rem;
+  text-align: left;
+}
+
 /* Full-screen transition overlay — brief darken + big text, reused for both the "ROUND N"
    effect between rounds and the "SOLD TO ..." effect when a match concludes. */
 .match-transition-overlay {

@@ -20,6 +20,8 @@ import {
   TRANSITION_OVERLAY_MS,
   LOT_MIN_ITEMS,
   LOT_MAX_ITEMS,
+  AUCTIONEER_INTEL_ROUNDS,
+  OVERPAY_SPILLOVER_RATE,
 } from "./config.js";
 import { ASSISTANTS, findAssistant, randomAssistant } from "./assistantCatalog.js";
 import { DEVICE_SETS, DEVICE_DEFINITIONS, instantiateDevices } from "./deviceCatalog.js";
@@ -1038,7 +1040,93 @@ function renderResult() {
     <div class="result-line"><span>Final Sale Price</span><span>${finalSalePrice.toLocaleString()}</span></div>
     <div class="result-line"><span>Actual Value</span><span>${actualValue.toLocaleString()}</span></div>
     <div class="result-line"><span>Earnings</span><span class="value ${earnClass}">${earnings >= 0 ? "+" : ""}${earnings.toLocaleString()}</span></div>
-    ${spilloverLines ? `<div class="spillover-list">Overpay spillover (10% each): ${spilloverLines}</div>` : ""}
+    ${spilloverLines ? `<div class="spillover-list">Overpay spillover (${Math.round(OVERPAY_SPILLOVER_RATE * 100)}% each): ${spilloverLines}</div>` : ""}
+  `;
+}
+
+/** Player-facing rules text for the "?" popup. Numbers are pulled live from config.js so this
+ * can't drift out of sync with actual game behavior — see going-going-gone-mechanics.md for the
+ * full source-of-truth mechanics writeup (including implementation notes, which are deliberately
+ * left out of this player-facing version). */
+function buildRulesHtml() {
+  const roundRows = Object.entries(ROUND_THRESHOLDS)
+    .map(([round, mult]) => `<tr><td>Round ${round}</td><td>Highest bid must be &ge; ${mult}&times; the round's second-highest bid</td></tr>`)
+    .join("");
+  const roundSeconds = Math.round(ROUND_MS / 1000);
+  const intelRounds = AUCTIONEER_INTEL_ROUNDS.join(", ");
+  const spilloverPct = Math.round(OVERPAY_SPILLOVER_RATE * 100);
+
+  return `
+    <h4>Overview</h4>
+    <p>4 players bid on a "lot" — a bundle of hidden Collectibles. You don't know exactly what's in
+    it or what it's worth up front; you build that picture over the match from partial reveals.
+    Winning the lot isn't the goal by itself — <strong>profit</strong> is. Winning for more than the
+    lot is actually worth is a loss, not a win.</p>
+
+    <h4>Setup</h4>
+    <ul>
+      <li>Each seat picks one <strong>Auction Assistant</strong> — free, automatic, reveals info to
+      you on a fixed schedule as the match goes on.</li>
+      <li>Each seat can also buy <strong>Device Sets</strong> with money — each set grants several
+      one-time-use <strong>Devices</strong> you trigger yourself during a match for an immediate,
+      private reveal.</li>
+      <li>Starting a match costs a flat entry fee (${STARTING_MATCH_FEE.toLocaleString()}) from your
+      money, which otherwise carries over between matches in this room. Each match you're also given
+      a separate bidding balance (${STARTING_BALANCE.toLocaleString()}) that's yours to spend on bids
+      that match.</li>
+    </ul>
+
+    <h4>Match structure</h4>
+    <ul>
+      <li>One match = one lot, played out over up to <strong>6 rounds</strong>.</li>
+      <li>Each round everyone has ${roundSeconds} seconds to act, simultaneously and blind — you
+      won't see anyone else's action for the round until it resolves.</li>
+      <li>Each round, choose one of: <strong>Bid</strong>, <strong>Pass</strong>, or use a
+      <strong>Device</strong> (only one device use allowed per round, per player).</li>
+      <li>Bids and revealed information both carry over and accumulate round to round — nothing
+      resets mid-match.</li>
+    </ul>
+
+    <h4>Winning a round outright</h4>
+    <table>
+      <tbody>
+        ${roundRows}
+        <tr><td>Round 5</td><td>Highest bid simply wins — no multiplier needed</td></tr>
+        <tr><td>Round 6</td><td>Tiebreak only, if Round 5 ended tied for highest — those players keep bidding, highest wins; if still tied, the lot goes unsold</td></tr>
+      </tbody>
+    </table>
+    <p>If nobody meets a round's condition, the auction just advances to the next (easier) round.</p>
+
+    <h4>Information &amp; reveals</h4>
+    <ul>
+      <li>The lot is laid out on a grid. Each item starts completely hidden, and can independently
+      have its <strong>rarity</strong> revealed, its <strong>silhouette/shape</strong> revealed, or
+      both — until eventually it's fully revealed (identity + price).</li>
+      <li>Your <strong>Current Estimate</strong> is your own personal running guess at the lot's
+      total value, based only on what you've personally learned — it starts low and climbs as you
+      get more reveals. Treat it as a floor, not a fair-value prediction.</li>
+      <li><strong>Auctioneer Public Intel</strong> — free info shared identically with every player,
+      posted on rounds ${intelRounds}.</li>
+      <li><strong>Assistant</strong> reveals and <strong>Device</strong> reveals are private — only
+      you see what your own Assistant/Devices uncover, and nobody sees you use them.</li>
+      <li>The <strong>Collectibles Index</strong> is a browsable catalog of every possible item —
+      use it to match a revealed rarity/shape against real candidates and estimate value yourself.</li>
+    </ul>
+
+    <h4>Collectible rarity</h4>
+    <p>Ascending value: <strong>White &rarr; Green &rarr; Blue &rarr; Purple &rarr; Gold &rarr; Red</strong>.</p>
+
+    <h4>When the lot sells</h4>
+    <ul>
+      <li>The winner pays their <strong>Final Sale Price</strong>, then the lot's true
+      <strong>Actual Value</strong> is revealed.</li>
+      <li><strong>Earnings</strong> = Actual Value &minus; Final Sale Price, applied straight to the
+      winner's balance — can be negative if they overpaid.</li>
+      <li>If Earnings are negative, each of the other 3 players receives ${spilloverPct}% of that
+      overpay — overpaying doesn't just hurt the winner.</li>
+      <li>The lot instantly cashes out either way — there's no separate item inventory to manage
+      afterward.</li>
+    </ul>
   `;
 }
 
@@ -1080,6 +1168,20 @@ async function init() {
   });
   document.getElementById("btn-close-collectibles-index").addEventListener("click", () => {
     document.getElementById("collectibles-index-panel").classList.remove("visible");
+  });
+
+  document.getElementById("rules-modal-body").innerHTML = buildRulesHtml();
+  const rulesBackdrop = document.getElementById("rules-modal-backdrop");
+  const closeRules = () => rulesBackdrop.classList.remove("visible");
+  document.getElementById("btn-open-rules").addEventListener("click", () => {
+    rulesBackdrop.classList.add("visible");
+  });
+  document.getElementById("btn-close-rules").addEventListener("click", closeRules);
+  rulesBackdrop.addEventListener("click", (e) => {
+    if (e.target === rulesBackdrop) closeRules();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && rulesBackdrop.classList.contains("visible")) closeRules();
   });
 
   showLandingScreen();

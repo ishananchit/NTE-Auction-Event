@@ -36,7 +36,7 @@
   <!-- Lobby: in a room, match not started yet. -->
   <section id="lobby-screen" class="lobby-screen hidden">
     <div class="lobby-inner">
-      <h2>Room <span id="lobby-room-code" class="room-code"></span></h2>
+      <h2>Room <span id="lobby-room-code" class="room-code"></span> <button type="button" id="btn-open-rules" class="btn-rules-icon" title="Game rules" aria-label="Game rules">?</button></h2>
       <p class="hint">Share the room code above. Each seat picks its own Assistant + Device Sets — only you can edit your own seat. Empty seats are auto-filled with bots when the host starts.</p>
       <div id="lobby-seats" class="setup-seats-grid"></div>
       <div class="lobby-actions">
@@ -125,6 +125,18 @@
        the "SOLD TO ..." effect when a match concludes (see showTransitionOverlay() in main.js). -->
   <div id="match-transition-overlay" class="match-transition-overlay">
     <div id="match-transition-text" class="match-transition-text"></div>
+  </div>
+
+  <!-- Game rules popup, opened from the "?" button on the prep/lobby screen. Content is filled in
+       by main.js (buildRulesHtml()) so the numbers stay in sync with config.js. -->
+  <div id="rules-modal-backdrop" class="rules-modal-backdrop">
+    <div class="rules-modal tint-slate">
+      <div class="overlay-header">
+        <h3>How to Play</h3>
+        <button type="button" id="btn-close-rules" class="overlay-close-btn" aria-label="Close">&times;</button>
+      </div>
+      <div id="rules-modal-body" class="rules-modal-body overlay-scroll"></div>
+    </div>
   </div>
 
   <script type="module" src="js/main.js"></script>
