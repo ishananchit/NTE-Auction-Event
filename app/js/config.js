@@ -27,7 +27,7 @@ export const AUCTIONEER_INTEL_ROUNDS = [1, 3, 5];
 // receives (§7 negative-profit spillover rule).
 export const OVERPAY_SPILLOVER_RATE = 0.2;
 
-// Round 1-4 win condition: highest bid must be >= this multiple of the round's second-highest
+// Round 1-4 win condition: highest bid must be > this multiple of the round's second-highest
 // bid (§4). Round 5 is highest-bid-wins (no multiplier, not listed here); Round 6 is tiebreak-only.
 export const ROUND_THRESHOLDS = { 1: 2.0, 2: 1.6, 3: 1.3, 4: 1.1 };
 

@@ -1050,7 +1050,7 @@ function renderResult() {
  * left out of this player-facing version). */
 function buildRulesHtml() {
   const roundRows = Object.entries(ROUND_THRESHOLDS)
-    .map(([round, mult]) => `<tr><td>Round ${round}</td><td>Highest bid must be &ge; ${mult}&times; the round's second-highest bid</td></tr>`)
+    .map(([round, mult]) => `<tr><td>Round ${round}</td><td>Highest bid must be &gt; ${mult}&times; the round's second-highest bid</td></tr>`)
     .join("");
   const roundSeconds = Math.round(ROUND_MS / 1000);
   const intelRounds = AUCTIONEER_INTEL_ROUNDS.join(", ");
