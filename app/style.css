@@ -1020,6 +1020,10 @@ button:disabled:hover {
   text-align: left;
 }
 
+.rules-modal-body td:first-child {
+  white-space: nowrap;
+}
+
 /* Full-screen transition overlay — brief darken + big text, reused for both the "ROUND N"
    effect between rounds and the "SOLD TO ..." effect when a match concludes. */
 .match-transition-overlay {
