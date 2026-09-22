@@ -23,20 +23,29 @@ service cloud.firestore {
   match /databases/{database}/documents {
 
     function isValidRoom(d) {
-      return d.keys().hasOnly(['roomCode', 'hostClientId', 'phase', 'seats', 'match', 'createdAt', 'updatedAt'])
+      return d.keys().hasOnly(['roomCode', 'hostClientId', 'phase', 'roomSize', 'seats', 'match', 'createdAt', 'updatedAt'])
         && d.roomCode is string && d.roomCode.size() <= 8
         && d.hostClientId is string && d.hostClientId.size() > 0 && d.hostClientId.size() <= 100
         && d.phase in ['lobby', 'match']
-        && d.seats is map && d.seats.keys().hasOnly(['0', '1', '2', '3'])
+        && d.roomSize is int && d.roomSize >= 2 && d.roomSize <= 8
+        && d.seats is map && d.seats.keys().hasOnly(['0', '1', '2', '3', '4', '5', '6', '7'])
         && isValidSeats(d.seats)
         && (d.match == null || d.match is map);
     }
 
+    // Room size is variable (2-8 seats, see MIN_ROOM_SIZE/MAX_ROOM_SIZE in app/js/config.js) but
+    // Firestore rules can't validate a dynamic-length map generically, so this just checks every
+    // slot up to the fixed 8-seat ceiling — a room smaller than 8 simply never has the extra keys
+    // present (seats.keys().hasOnly(...) above already forbids anything beyond '0'..'7').
     function isValidSeats(seats) {
       return (seats.get('0', null) == null || isValidSeat(seats.get('0', null)))
         && (seats.get('1', null) == null || isValidSeat(seats.get('1', null)))
         && (seats.get('2', null) == null || isValidSeat(seats.get('2', null)))
-        && (seats.get('3', null) == null || isValidSeat(seats.get('3', null)));
+        && (seats.get('3', null) == null || isValidSeat(seats.get('3', null)))
+        && (seats.get('4', null) == null || isValidSeat(seats.get('4', null)))
+        && (seats.get('5', null) == null || isValidSeat(seats.get('5', null)))
+        && (seats.get('6', null) == null || isValidSeat(seats.get('6', null)))
+        && (seats.get('7', null) == null || isValidSeat(seats.get('7', null)));
     }
 
     function isValidSeat(seat) {
@@ -53,7 +62,7 @@ service cloud.firestore {
     function isValidAction(a) {
       return a.keys().hasOnly(['type', 'playerId', 'amount', 'deviceId', 'createdAt'])
         && a.type in ['placeBid', 'useDevice']
-        && a.playerId is string && a.playerId.matches('^p[1-4]$')
+        && a.playerId is string && a.playerId.matches('^p[1-8]$')
         && (a.type != 'placeBid' || (a.amount is number && a.amount >= 0))
         && (a.type != 'useDevice' || (a.deviceId is string && a.deviceId.size() <= 200));
     }

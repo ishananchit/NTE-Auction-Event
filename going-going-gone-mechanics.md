@@ -166,6 +166,7 @@ Things the sources didn't nail down precisely, and the calls made for this build
 - **Sessions:** no "game night"/session concept exists — players can start a match anytime, as many times as they want; no per-session reset.
 - **Collectible pool:** still needs a full value table — this is what `collectibles-template.xlsx` is for (user's own curated item list, real or joke items).
 - **Venue tiers:** skipped for now — one flat set of stakes, no 3-tier Shell/Coral/Pearl Hall system.
+- **Room size:** deviates from the source game's fixed 4-player match — this recreation lets the host pick any room size from 2-8 seats at room creation (`MIN_ROOM_SIZE`/`MAX_ROOM_SIZE` in `app/js/config.js`). All other mechanics (round thresholds, bidding, reveals) work identically regardless of size, since they were already written generically over `match.players`. The one place this interacts with an existing mechanic: the negative-profit spillover rate (§7) is a flat 20% *per other player*, not a total pool split, so at room sizes above 6 the collective spillover can exceed 100% of the winner's overpay — left as-is for now, not rebalanced for larger rooms.
 - **Persistence:** currency and device inventory persist indefinitely per player, across all matches, forever (not reset per session — see above, same answer).
 - **Currency name:** call it **"money"** for now.
 - **Per-round bid timer:** fixed at **60 seconds**, regardless of what the source game itself used (§3).

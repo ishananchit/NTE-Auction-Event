@@ -34,12 +34,15 @@ export async function roomExists(code) {
   return snap.exists();
 }
 
-export async function createRoom(code, hostClientId) {
+export async function createRoom(code, hostClientId, roomSize = 4) {
+  const seats = {};
+  for (let i = 0; i < roomSize; i++) seats[i] = null; // each: {clientId, name, isBot, assistantName, deviceSetNames, balance} | null
   await setDoc(roomDocRef(code), {
     roomCode: code,
     hostClientId,
     phase: "lobby", // "lobby" | "match"
-    seats: { 0: null, 1: null, 2: null, 3: null }, // each: {clientId, name, isBot, assistantName, deviceSetNames, balance} | null
+    roomSize, // total seats this room was created with — see MIN_ROOM_SIZE/MAX_ROOM_SIZE in config.js
+    seats,
     match: null,
     createdAt: serverTimestamp(),
     updatedAt: serverTimestamp(),

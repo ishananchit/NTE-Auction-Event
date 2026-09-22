@@ -22,6 +22,8 @@ import {
   LOT_MAX_ITEMS,
   AUCTIONEER_INTEL_ROUNDS,
   OVERPAY_SPILLOVER_RATE,
+  MIN_ROOM_SIZE,
+  MAX_ROOM_SIZE,
 } from "./config.js";
 import { ASSISTANTS, findAssistant, randomAssistant } from "./assistantCatalog.js";
 import { DEVICE_SETS, DEVICE_DEFINITIONS, instantiateDevices } from "./deviceCatalog.js";
@@ -108,8 +110,11 @@ async function handleCreateRoom() {
   setStoredName(name);
   state.playerName = name;
 
+  const rawSize = Number(document.getElementById("landing-room-size").value);
+  const roomSize = Math.min(MAX_ROOM_SIZE, Math.max(MIN_ROOM_SIZE, rawSize || 4));
+
   const code = generateRoomCode();
-  await createRoom(code, state.clientId);
+  await createRoom(code, state.clientId, roomSize);
   enterRoom(code);
   await claimSeat(0); // whoever creates the room (and is therefore host) takes seat 1 by default
 }
@@ -202,7 +207,8 @@ function determineMyPlayerId() {
 
 function findMySeatIndex() {
   const seats = state.room?.seats || {};
-  for (let i = 0; i < 4; i++) {
+  const roomSize = state.room?.roomSize || 4;
+  for (let i = 0; i < roomSize; i++) {
     if (seats[String(i)]?.clientId === state.clientId) return i;
   }
   return -1;
@@ -268,7 +274,8 @@ function renderLobby() {
 
   const othersWrap = document.createElement("div");
   othersWrap.className = "lobby-other-seats";
-  for (let i = 0; i < 4; i++) {
+  const roomSize = room.roomSize || 4;
+  for (let i = 0; i < roomSize; i++) {
     if (i === mySeatIndex) continue;
     const seat = room.seats[String(i)];
     const block = document.createElement("div");
@@ -471,9 +478,10 @@ function wireMineSeat(el, i) {
 
 async function hostStartMatch() {
   const room = state.room;
-  const players = makePlayers(4, STARTING_BALANCE);
+  const roomSize = room.roomSize || 4;
+  const players = makePlayers(roomSize, STARTING_BALANCE);
   const feeFields = {};
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < roomSize; i++) {
     const seat = room.seats[String(i)];
     const player = players[i];
     if (seat) {
@@ -513,7 +521,7 @@ async function hostStartMatch() {
 function computeWalletSyncFields(match) {
   const fields = {};
   const seats = state.room?.seats || {};
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < match.players.length; i++) {
     const seat = seats[String(i)];
     const player = match.players[i];
     if (!seat || !player) continue;
@@ -1064,7 +1072,7 @@ function buildRulesHtml() {
 
   return `
     <h4>Overview</h4>
-    <p>4 players bid on a "lot" — a bundle of hidden Collectibles. You don't know exactly what's in
+    <p>Players bid against each other on a "lot" — a bundle of hidden Collectibles. You don't know exactly what's in
     it or what it's worth up front; you build that picture over the match from partial reveals.
     Winning the lot isn't the goal by itself — <strong>profit</strong> is. Winning for more than the
     lot is actually worth is a loss, not a win.</p>
@@ -1128,8 +1136,8 @@ function buildRulesHtml() {
       <strong>Actual Value</strong> is revealed.</li>
       <li><strong>Earnings</strong> = Actual Value &minus; Final Sale Price, applied straight to the
       winner's balance — can be negative if they overpaid.</li>
-      <li>If Earnings are negative, each of the other 3 players receives ${spilloverPct}% of that
-      overpay — overpaying doesn't just hurt the winner.</li>
+      <li>If Earnings are negative, each of the other seated players receives ${spilloverPct}% of
+      that overpay — overpaying doesn't just hurt the winner.</li>
       <li>The lot instantly cashes out either way — there's no separate item inventory to manage
       afterward.</li>
     </ul>

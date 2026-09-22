@@ -247,7 +247,8 @@ button:disabled:hover {
   margin: 0.75rem 0 1.25rem;
 }
 
-.field-row input {
+.field-row input,
+.field-row select {
   background: var(--card-bg);
   color: var(--ink);
   border: 1px solid var(--card-border);

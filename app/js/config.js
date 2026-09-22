@@ -23,8 +23,12 @@ export const STARTING_MATCH_FEE = 50_000;
 // sparser schedule is more accurate than "every round."
 export const AUCTIONEER_INTEL_ROUNDS = [1, 3, 5];
 
-// Fraction of the winner's overpay (when Earnings is negative) each of the other 3 players
-// receives (§7 negative-profit spillover rule).
+// Fraction of the winner's overpay (when Earnings is negative) each of the OTHER seated players
+// receives (§7 negative-profit spillover rule). This is a flat per-player rate, not a total pool
+// split — at the default 4-player room that's 3 others × 20% = 60% of the overpay given back
+// total. Left unchanged when variable room sizes were added (see MIN_ROOM_SIZE/MAX_ROOM_SIZE
+// below): at large rooms (6+ others) this can now give back >100% of the loss collectively
+// (e.g. 7 others × 20% = 140% at the 8-player max) — a deliberate tradeoff for now, not a bug.
 export const OVERPAY_SPILLOVER_RATE = 0.2;
 
 // Round 1-4 win condition: highest bid must be > this multiple of the round's second-highest
@@ -63,3 +67,10 @@ export const LOT_MAX_ITEMS = 60;
 // pathological all-5x5 input (and several other adversarial size mixes) before adding a margin
 // on top for safety.
 export const GRID_FIXED_HEIGHT = Math.ceil(LOT_MAX_ITEMS / 2) * 5 + 20;
+
+// Bounds for the room-size picker on the landing screen — how many total seats a room can have,
+// chosen once at room creation (see roomSync.js's createRoom()). MAX_ROOM_SIZE is also the fixed
+// cap `firestore.rules` structurally validates against (seats '0'..'7', playerId 'p1'..'p8') —
+// bump both together if this ever needs to change.
+export const MIN_ROOM_SIZE = 2;
+export const MAX_ROOM_SIZE = 8;
